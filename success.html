@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket Créé avec Succès - RDC Congo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .success-icon i {
+            color: white;
+            font-size: 40px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .success-title {
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            color: #7f8c8d;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .application-code-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px dashed #4CAF50;
+        }
+
+        .code-label {
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .application-code {
+            background: white;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .application-code::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .important-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .important-info h4 {
+            color: #856404;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .important-info ul {
+            color: #856404;
+            font-size: 14px;
+            line-height: 1.6;
+            padding-left: 20px;
+        }
+
+        .important-info li {
+            margin-bottom: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #4CAF50;
+        }
+
+        .notification.error {
+            background: #f44336;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .lang-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang="fr"] {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .success-title {
+                font-size: 24px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn" onclick="toggleLanguage()">
+            <span id="currentLanguage">FR</span>
+        </button>
+    </div>
+
+    <div class="success-container">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+
+        <h1 class="success-title" data-lang="fr">E-Ticket Créé avec Succès!</h1>
+        <h1 class="success-title" data-lang="en">E-Ticket Created Successfully!</h1>
+        <h1 class="success-title" data-lang="es">¡E-Ticket Creado con Éxito!</h1>
+
+        <p class="success-message" data-lang="fr">Votre demande d'e-Ticket a été enregistrée avec succès. Conservez précieusement votre code d'application pour toute référence future.</p>
+        <p class="success-message" data-lang="en">Your e-Ticket application has been successfully registered. Keep your application code safe for future reference.</p>
+        <p class="success-message" data-lang="es">Su solicitud de e-Ticket ha sido registrada exitosamente. Guarde su código de aplicación de forma segura para referencia futura.</p>
+
+        <div class="application-code-section">
+            <div class="code-label" data-lang="fr">CODE D'APPLICATION</div>
+            <div class="code-label" data-lang="en">APPLICATION CODE</div>
+            <div class="code-label" data-lang="es">CÓDIGO DE APLICACIÓN</div>
+            
+            <div class="application-code" id="applicationCode">ET-25-3NEMY7-mdqznd0a</div>
+        </div>
+
+        <div class="important-info">
+            <h4 data-lang="fr">Informations importantes:</h4>
+            <h4 data-lang="en">Important Information:</h4>
+            <h4 data-lang="es">Información Importante:</h4>
+            
+            <ul data-lang="fr">
+                <li>Ce code vous permet de créer un nouveau eTicket à partir de ce précédent</li>
+                <li>Conservez ce code en lieu sûr pour toute modification future</li>
+                <li>Vous recevrez également un email de confirmation</li>
+            </ul>
+            <ul data-lang="en">
+                <li>This code allows you to create a new eTicket from this previous one</li>
+                <li>Keep this code safe for any future modifications</li>
+                <li>You will also receive a confirmation email</li>
+            </ul>
+            <ul data-lang="es">
+                <li>Este código le permite crear un nuevo eTicket a partir de este anterior</li>
+                <li>Guarde este código de forma segura para cualquier modificación futura</li>
+                <li>También recibirá un correo electrónico de confirmación</li>
+            </ul>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="copyApplicationCode()">
+                <i class="fas fa-copy"></i>
+                <span data-lang="fr">Copier le Code</span>
+                <span data-lang="en">Copy Code</span>
+                <span data-lang="es">Copiar Código</span>
+            </button>
+            
+            <button class="btn btn-secondary" onclick="downloadPDF()">
+                <i class="fas fa-download"></i>
+                <span data-lang="fr">Télécharger PDF</span>
+                <span data-lang="en">Download PDF</span>
+                <span data-lang="es">Descargar PDF</span>
+            </button>
+            
+            <button class="btn btn-danger" onclick="closePage()">
+                <i class="fas fa-times"></i>
+                <span data-lang="fr">Fermer</span>
+                <span data-lang="en">Close</span>
+                <span data-lang="es">Cerrar</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        let currentLanguage = 'fr';
+
+        function toggleLanguage() {
+            const languages = ['fr', 'en', 'es'];
+            const currentIndex = languages.indexOf(currentLanguage);
+            const nextIndex = (currentIndex + 1) % languages.length;
+            currentLanguage = languages[nextIndex];
+            
+            // Update language button text
+            const langTexts = { 'fr': 'FR', 'en': 'EN', 'es': 'ES' };
+            document.getElementById('currentLanguage').textContent = langTexts[currentLanguage];
+            
+            // Show/hide elements based on language
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                element.style.display = 'none';
+            });
+            
+            document.querySelectorAll(`[data-lang="${currentLanguage}"]`).forEach(element => {
+                element.style.display = 'block';
+            });
+        }
+
+        function copyApplicationCode() {
+            const code = document.getElementById('applicationCode').textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showNotification('Code copié avec succès!', 'success');
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(code);
+                });
+            } else {
+                fallbackCopyTextToClipboard(code);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showNotification('Code copié avec succès!', 'success');
+                } else {
+                    showNotification('Erreur lors de la copie', 'error');
+                }
+            } catch (err) {
+                showNotification('Erreur lors de la copie', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function downloadPDF() {
+            const applicationCode = document.getElementById('applicationCode').textContent;
+            generatePDFContent(applicationCode).then(content => {
+                downloadPDF(applicationCode, content);
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                showNotification('Erreur lors de la génération du PDF', 'error');
+            });
+        }
+
+        async function generatePDFContent(applicationCode) {
+            try {
+                const currentLang = currentLanguage;
+                const titles = {
+                    'fr': 'Formulaire de déclaration en douane - RDC Congo',
+                    'en': 'Customs Declaration Form - DRC Congo',
+                    'es': 'Formulario de Declaración de Aduanas - RDC Congo'
+                };
+                
+                const successMessages = {
+                    'fr': 'E-Ticket Créé avec Succès!',
+                    'en': 'E-Ticket Created Successfully!',
+                    'es': '¡E-Ticket Creado con Éxito!'
+                };
+                
+                const codeLabels = {
+                    'fr': 'CODE D\'APPLICATION',
+                    'en': 'APPLICATION CODE',
+                    'es': 'CÓDIGO DE APLICACIÓN'
+                };
+                
+                const importantInfos = {
+                    'fr': [
+                        'Ce code vous permet de créer un nouveau eTicket à partir de ce précédent',
+                        'Conservez ce code en lieu sûr pour toute modification future',
+                        'Vous recevrez également un email de confirmation'
+                    ],
+                    'en': [
+                        'This code allows you to create a new eTicket from this previous one',
+                        'Keep this code safe for any future modifications',
+                        'You will also receive a confirmation email'
+                    ],
+                    'es': [
+                        'Este código le permite crear un nuevo eTicket a partir de este anterior',
+                        'Guarde este código de forma segura para cualquier modificación futura',
+                        'También recibirá un correo electrónico de confirmación'
+                    ]
+                };
+
+                const content = `
+                    <!DOCTYPE html>
+                    <html lang="${currentLang}">
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>${titles[currentLang]}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
+                            .success-section { background: #f0f8f0; padding: 20px; border-radius: 10px; margin: 20px 0; }
+                            .code-section { background: #fff; border: 2px solid #4CAF50; padding: 15px; margin: 15px 0; text-align: center; }
+                            .code { font-family: monospace; font-size: 18px; font-weight: bold; color: #2c3e50; }
+                            .important-info { background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; }
+                            .important-info h4 { color: #856404; margin-bottom: 10px; }
+                            .important-info ul { color: #856404; padding-left: 20px; }
+                            .qr-section { text-align: center; margin: 20px 0; }
+                            .qr-code { max-width: 200px; margin: 0 auto; }
+                            .footer { margin-top: 40px; text-align: center; color: #666; font-size: 12px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <h1>${titles[currentLang]}</h1>
+                            <p>République Démocratique du Congo</p>
+                        </div>
+                        
+                        <div class="success-section">
+                            <h2 style="color: #4CAF50;">${successMessages[currentLang]}</h2>
+                            <p>Date: ${new Date().toLocaleDateString()}</p>
+                        </div>
+                        
+                        <div class="code-section">
+                            <h3>${codeLabels[currentLang]}</h3>
+                            <div class="code">${applicationCode}</div>
+                        </div>
+                        
+                        <div class="important-info">
+                            <h4>${currentLang === 'fr' ? 'Informations importantes:' : currentLang === 'en' ? 'Important Information:' : 'Información Importante:'}</h4>
+                            <ul>
+                                ${importantInfos[currentLang].map(info => `<li>${info}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="qr-section">
+                            <h4>${currentLang === 'fr' ? 'Code QR pour numérisation rapide' : currentLang === 'en' ? 'QR Code for quick scanning' : 'Código QR para escaneo rápido'}</h4>
+                            <div class="qr-code">
+                                <svg width="200" height="200" viewBox="0 0 200 200">
+                                    <rect width="200" height="200" fill="white"/>
+                                    <text x="100" y="100" text-anchor="middle" dy=".3em" font-family="monospace" font-size="12" fill="#333">${applicationCode}</text>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div class="footer">
+                            <p>${currentLang === 'fr' ? 'Document généré automatiquement' : currentLang === 'en' ? 'Automatically generated document' : 'Documento generado automáticamente'}</p>
+                        </div>
+                    </body>
+                    </html>
+                `;
+                
+                return content;
+            } catch (error) {
+                throw new Error('Failed to generate PDF content: ' + error.message);
+            }
+        }
+
+        function downloadPDF(applicationCode, content) {
+            try {
+                const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+                
+                if (!blob || blob.size === 0) {
+                    throw new Error('Generated blob is empty');
+                }
+                
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `e-ticket-${applicationCode}.html`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 100);
+                
+                showNotification('PDF téléchargé avec succès!', 'success');
+            } catch (error) {
+                console.error('Error downloading PDF:', error);
+                showNotification('Erreur lors du téléchargement: ' + error.message, 'error');
+            }
+        }
+
+        function closePage() {
+            if (confirm('Êtes-vous sûr de vouloir fermer cette page ?')) {
+                window.close();
+                // Fallback if window.close() doesn't work
+                window.location.href = 'index.html';
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleLanguage(); // This will set French as default
+        });
+    </script>
+</body>
+</html> 

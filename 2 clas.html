@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Migratoire - République Démocratique du Congo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #ff4757;
+            margin: 15px auto 0;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: #007bff;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .step.completed .step-number {
+            background: #28a745;
+            color: white;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .step.active .step-text {
+            color: #007bff;
+        }
+
+        .step.completed .step-text {
+            color: #28a745;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: #e9ecef;
+            margin: 0 15px;
+        }
+
+        .step-line.completed {
+            background: #28a745;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .mandatory-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            color: #856404;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mandatory-notice i {
+            margin-right: 10px;
+            color: #f39c12;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            accent-color: #3498db;
+        }
+
+        .radio-option label {
+            font-size: 14px;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+
+        .conditional-field {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .conditional-field.show {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 8px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .language-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="language-btn active" onclick="changeLanguage('fr')">FR</button>
+        <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+        <button class="language-btn" onclick="changeLanguage('es')">ES</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 data-lang="fr">Informations Requises</h1>
+            <h1 data-lang="en" style="display: none;">Required Information</h1>
+            <h1 data-lang="es" style="display: none;">Información Requerida</h1>
+            
+            <h2 data-lang="fr">Enregistrement pour l'entrée et la sortie de la République démocratique du Congo</h2>
+            <h2 data-lang="en" style="display: none;">Registration for entry and exit of the Democratic Republic of Congo</h2>
+            <h2 data-lang="es" style="display: none;">Registro para entrada y salida de la República Democrática del Congo</h2>
+        </div>
+
+        <div class="progress-bar">
+            <div class="step completed">
+                <div class="step-number">1</div>
+                <div class="step-text" data-lang="fr">Informations Personnelles</div>
+                <div class="step-text" data-lang="en" style="display: none;">Personal Information</div>
+                <div class="step-text" data-lang="es" style="display: none;">Información Personal</div>
+            </div>
+            <div class="step-line completed"></div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <div class="step-text" data-lang="fr">Informations Migratoires</div>
+                <div class="step-text" data-lang="en" style="display: none;">Migratory Information</div>
+                <div class="step-text" data-lang="es" style="display: none;">Información Migratoria</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text" data-lang="fr">Informations de Douane</div>
+                <div class="step-text" data-lang="en" style="display: none;">Customs Information</div>
+                <div class="step-text" data-lang="es" style="display: none;">Información de Aduana</div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="mandatory-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span data-lang="fr">Tous les champs marqués d'un * sont obligatoires</span>
+                <span data-lang="en" style="display: none;">All fields marked with * are mandatory</span>
+                <span data-lang="es" style="display: none;">Todos los campos marcados con * son obligatorios</span>
+            </div>
+
+            <form id="migratoryForm">
+                <div class="form-section">
+                    <h3 class="section-title" data-lang="fr">Informations migratoires du demandeur et des personnes accompagnantes</h3>
+                    <h3 class="section-title" data-lang="en" style="display: none;">Migratory information of registrant and accompanying persons</h3>
+                    <h3 class="section-title" data-lang="es" style="display: none;">Información migratoria del solicitante y personas acompañantes</h3>
+
+                    <!-- Personal Information -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Prénoms <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">First names <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Nombres <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="firstNames" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Nom de famille <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Last name <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Apellido <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Date de naissance <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Date of Birth <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Fecha de nacimiento <span class="required">*</span></label>
+                            <input type="date" class="form-input" name="dateOfBirth" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Genre <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Gender <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Género <span class="required">*</span></label>
+                            <select class="form-select" name="gender" required>
+                                <option value="">Sélectionner</option>
+                                <option value="male" data-lang="fr">Masculin</option>
+                                <option value="male" data-lang="en" style="display: none;">Male</option>
+                                <option value="male" data-lang="es" style="display: none;">Masculino</option>
+                                <option value="female" data-lang="fr">Féminin</option>
+                                <option value="female" data-lang="en" style="display: none;">Female</option>
+                                <option value="female" data-lang="es" style="display: none;">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Lieu de naissance <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Place of birth <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Lugar de nacimiento <span class="required">*</span></label>
+                            <select class="form-select" name="placeOfBirth" required>
+                                <option value="">Sélectionner</option>
+                                <!-- Countries will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Pays de nationalité <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Country of nationality <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">País de nacionalidad <span class="required">*</span></label>
+                            <select class="form-select" name="countryOfNationality" required>
+                                <option value="">Sélectionner</option>
+                                <!-- Countries will be populated by JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Passeport <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Passport <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Pasaporte <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="passport" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Confirmer passeport <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Confirm passport <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Confirmar pasaporte <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="confirmPassport" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                                                        <label class="form-label" data-lang="fr">Êtes-vous un étranger résidant en République démocratique du Congo ? <span class="required">*</span></label>
+                        <label class="form-label" data-lang="en" style="display: none;">Are you a foreigner residing in the Democratic Republic of Congo? <span class="required">*</span></label>
+                        <label class="form-label" data-lang="es" style="display: none;">¿Es usted un extranjero residente en la República Democrática del Congo? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="foreignerResident" value="yes" id="foreignerYes" onchange="toggleResidenceNumber()">
+                                <label for="foreignerYes" data-lang="fr">Oui</label>
+                                <label for="foreignerYes" data-lang="en" style="display: none;">Yes</label>
+                                <label for="foreignerYes" data-lang="es" style="display: none;">Sí</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="foreignerResident" value="no" id="foreignerNo" onchange="toggleResidenceNumber()">
+                                <label for="foreignerNo" data-lang="fr">Non</label>
+                                <label for="foreignerNo" data-lang="en" style="display: none;">No</label>
+                                <label for="foreignerNo" data-lang="es" style="display: none;">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-field" id="residenceNumberField">
+                        <label class="form-label" data-lang="fr">Numéro de résidence <span class="required">*</span></label>
+                        <label class="form-label" data-lang="en" style="display: none;">Residence number <span class="required">*</span></label>
+                        <label class="form-label" data-lang="es" style="display: none;">Número de residencia <span class="required">*</span></label>
+                        <select class="form-select" name="residenceNumber">
+                            <option value="">Sélectionner</option>
+                            <!-- Residence numbers will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">État civil <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Marital status <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Estado civil <span class="required">*</span></label>
+                            <select class="form-select" name="maritalStatus" required>
+                                <option value="">Sélectionner</option>
+                                <option value="single" data-lang="fr">Célibataire</option>
+                                <option value="single" data-lang="en" style="display: none;">Single</option>
+                                <option value="single" data-lang="es" style="display: none;">Soltero</option>
+                                <option value="married" data-lang="fr">Marié(e)</option>
+                                <option value="married" data-lang="en" style="display: none;">Married</option>
+                                <option value="married" data-lang="es" style="display: none;">Casado</option>
+                                <option value="divorced" data-lang="fr">Divorcé(e)</option>
+                                <option value="divorced" data-lang="en" style="display: none;">Divorced</option>
+                                <option value="divorced" data-lang="es" style="display: none;">Divorciado</option>
+                                <option value="widowed" data-lang="fr">Veuf/Veuve</option>
+                                <option value="widowed" data-lang="en" style="display: none;">Widowed</option>
+                                <option value="widowed" data-lang="es" style="display: none;">Viudo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Profession <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Occupation <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Ocupación <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="occupation" value="yes" id="occupationYes">
+                                    <label for="occupationYes" data-lang="fr">Oui</label>
+                                    <label for="occupationYes" data-lang="en" style="display: none;">Yes</label>
+                                    <label for="occupationYes" data-lang="es" style="display: none;">Sí</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="occupation" value="no" id="occupationNo">
+                                    <label for="occupationNo" data-lang="fr">Non</label>
+                                    <label for="occupationNo" data-lang="en" style="display: none;">No</label>
+                                    <label for="occupationNo" data-lang="es" style="display: none;">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accommodation Information -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang="fr">Allez-vous séjourner dans un hôtel ? <span class="required">*</span></label>
+                        <label class="form-label" data-lang="en" style="display: none;">Will you be staying in a hotel? <span class="required">*</span></label>
+                        <label class="form-label" data-lang="es" style="display: none;">¿Se alojará en un hotel? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="stayingHotel" value="yes" id="hotelYes" onchange="toggleHotelFields()">
+                                <label for="hotelYes" data-lang="fr">Oui</label>
+                                <label for="hotelYes" data-lang="en" style="display: none;">Yes</label>
+                                <label for="hotelYes" data-lang="es" style="display: none;">Sí</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="stayingHotel" value="no" id="hotelNo" onchange="toggleHotelFields()">
+                                <label for="hotelNo" data-lang="fr">Non</label>
+                                <label for="hotelNo" data-lang="en" style="display: none;">No</label>
+                                <label for="hotelNo" data-lang="es" style="display: none;">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-field" id="hotelField">
+                        <label class="form-label" data-lang="fr">Spécifier l'hôtel <span class="required">*</span></label>
+                        <label class="form-label" data-lang="en" style="display: none;">Specify the hotel <span class="required">*</span></label>
+                        <label class="form-label" data-lang="es" style="display: none;">Especificar el hotel <span class="required">*</span></label>
+                        <input type="text" class="form-input" name="hotelName" placeholder="Tapez et sélectionnez">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-lang="fr">Allez-vous séjourner dans un logement privé ? <span class="required">*</span></label>
+                        <label class="form-label" data-lang="en" style="display: none;">Will you be staying in private accommodation? <span class="required">*</span></label>
+                        <label class="form-label" data-lang="es" style="display: none;">¿Se alojará en alojamiento privado? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="stayingPrivate" value="yes" id="privateYes" onchange="toggleAddressFields()">
+                                <label for="privateYes" data-lang="fr">Oui</label>
+                                <label for="privateYes" data-lang="en" style="display: none;">Yes</label>
+                                <label for="privateYes" data-lang="es" style="display: none;">Sí</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="stayingPrivate" value="no" id="privateNo" onchange="toggleAddressFields()">
+                                <label for="privateNo" data-lang="fr">Non</label>
+                                <label for="privateNo" data-lang="en" style="display: none;">No</label>
+                                <label for="privateNo" data-lang="es" style="display: none;">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conditional-field" id="addressFields">
+                        <div class="mandatory-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <span data-lang="fr">Si ce n'est pas un hôtel, vous devez ajouter l'adresse</span>
+                            <span data-lang="en" style="display: none;">If it is not a hotel, you must add the address</span>
+                            <span data-lang="es" style="display: none;">Si no es un hotel, debe agregar la dirección</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-lang="fr">Province <span class="required">*</span></label>
+                                <label class="form-label" data-lang="en" style="display: none;">Province <span class="required">*</span></label>
+                                <label class="form-label" data-lang="es" style="display: none;">Provincia <span class="required">*</span></label>
+                                <select class="form-select" name="province" onchange="updateMunicipalities()">
+                                    <option value="">Sélectionner</option>
+                                    <!-- Provinces will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-lang="fr">Municipalité <span class="required">*</span></label>
+                                <label class="form-label" data-lang="en" style="display: none;">Municipality <span class="required">*</span></label>
+                                <label class="form-label" data-lang="es" style="display: none;">Municipio <span class="required">*</span></label>
+                                <select class="form-select" name="municipality" onchange="updateSectors()">
+                                    <option value="">Sélectionner</option>
+                                    <!-- Municipalities will be populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-lang="fr">Secteur <span class="required">*</span></label>
+                                <label class="form-label" data-lang="en" style="display: none;">Sector <span class="required">*</span></label>
+                                <label class="form-label" data-lang="es" style="display: none;">Sector <span class="required">*</span></label>
+                                <select class="form-select" name="sector">
+                                    <option value="">Sélectionner</option>
+                                    <!-- Sectors will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-lang="fr">Rue et numéro <span class="required">*</span></label>
+                                <label class="form-label" data-lang="en" style="display: none;">Street and number <span class="required">*</span></label>
+                                <label class="form-label" data-lang="es" style="display: none;">Calle y número <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="streetAndNumber">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travel Information -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Port d'embarquement (aéroport de départ) <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Port of embarkation (departure airport) <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Puerto de embarque (aeropuerto de salida) <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="portOfEmbarkation" placeholder="Tapez et sélectionnez">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Numéro de vol <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Flight number <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Número de vuelo <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="flightNumber">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Port de débarquement (aéroport d'arrivée) <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Port of disembarkation (airport of entry) <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Puerto de desembarque (aeropuerto de llegada) <span class="required">*</span></label>
+                            <select class="form-select" name="portOfDisembarkation" required>
+                                <option value="">Sélectionner</option>
+                                <!-- Airports will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Raison <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Reason <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Razón <span class="required">*</span></label>
+                            <select class="form-select" name="reason" required>
+                                <option value="">Sélectionner</option>
+                                <option value="tourism" data-lang="fr">Tourisme</option>
+                                <option value="tourism" data-lang="en" style="display: none;">Tourism</option>
+                                <option value="tourism" data-lang="es" style="display: none;">Turismo</option>
+                                <option value="business" data-lang="fr">Affaires</option>
+                                <option value="business" data-lang="en" style="display: none;">Business</option>
+                                <option value="business" data-lang="es" style="display: none;">Negocios</option>
+                                <option value="family" data-lang="fr">Famille</option>
+                                <option value="family" data-lang="en" style="display: none;">Family</option>
+                                <option value="family" data-lang="es" style="display: none;">Familia</option>
+                                <option value="study" data-lang="fr">Études</option>
+                                <option value="study" data-lang="en" style="display: none;">Study</option>
+                                <option value="study" data-lang="es" style="display: none;">Estudios</option>
+                                <option value="other" data-lang="fr">Autre</option>
+                                <option value="other" data-lang="en" style="display: none;">Other</option>
+                                <option value="other" data-lang="es" style="display: none;">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="fr">Compagnie de transport <span class="required">*</span></label>
+                            <label class="form-label" data-lang="en" style="display: none;">Transportation company <span class="required">*</span></label>
+                            <label class="form-label" data-lang="es" style="display: none;">Compañía de transporte <span class="required">*</span></label>
+                            <select class="form-select" name="transportationCompany" required>
+                                <option value="">Sélectionner</option>
+                                <!-- Transportation companies will be populated by JavaScript -->
+                            </select>
+                        </div>
+                                                 <div class="form-group">
+                             <label class="form-label" data-lang="fr">Jours de séjour dans le pays <span class="required">*</span></label>
+                             <label class="form-label" data-lang="en" style="display: none;">Days of stay in the country <span class="required">*</span></label>
+                             <label class="form-label" data-lang="es" style="display: none;">Días de estancia en el país <span class="required">*</span></label>
+                             <input type="number" class="form-input" name="daysOfStay" min="1" max="365">
+                         </div>
+                     </div>
+                </form>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span data-lang="fr">RETOUR</span>
+                    <span data-lang="en" style="display: none;">BACK</span>
+                    <span data-lang="es" style="display: none;">VOLVER</span>
+                </button>
+                <button type="button" class="btn btn-primary" onclick="validateAndSubmit()">
+                    <span data-lang="fr">SUIVANT</span>
+                    <span data-lang="en" style="display: none;">NEXT</span>
+                    <span data-lang="es" style="display: none;">SIGUIENTE</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language switching functionality
+        function changeLanguage(lang) {
+            // Update language buttons
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show/hide language-specific elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                if (element.getAttribute('data-lang') === lang) {
+                    element.style.display = '';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+
+            // Update placeholders
+            updatePlaceholders(lang);
+        }
+
+        function updatePlaceholders(lang) {
+            const placeholders = {
+                'fr': {
+                    'hotelName': 'Tapez et sélectionnez',
+                    'portOfEmbarkation': 'Tapez et sélectionnez'
+                },
+                'en': {
+                    'hotelName': 'Type and select',
+                    'portOfEmbarkation': 'Type and select'
+                },
+                'es': {
+                    'hotelName': 'Escriba y seleccione',
+                    'portOfEmbarkation': 'Escriba y seleccione'
+                }
+            };
+
+            if (placeholders[lang]) {
+                Object.keys(placeholders[lang]).forEach(fieldName => {
+                    const field = document.querySelector(`[name="${fieldName}"]`);
+                    if (field) {
+                        field.placeholder = placeholders[lang][fieldName];
+                    }
+                });
+            }
+        }
+
+        // Conditional field toggles
+        function toggleResidenceNumber() {
+            const foreignerYes = document.getElementById('foreignerYes');
+            const residenceField = document.getElementById('residenceNumberField');
+            
+            if (foreignerYes.checked) {
+                residenceField.classList.add('show');
+                residenceField.querySelector('select').required = true;
+            } else {
+                residenceField.classList.remove('show');
+                residenceField.querySelector('select').required = false;
+            }
+        }
+
+        function toggleHotelFields() {
+            const hotelYes = document.getElementById('hotelYes');
+            const hotelField = document.getElementById('hotelField');
+            
+            if (hotelYes.checked) {
+                hotelField.classList.add('show');
+                hotelField.querySelector('input').required = true;
+            } else {
+                hotelField.classList.remove('show');
+                hotelField.querySelector('input').required = false;
+            }
+        }
+
+        function toggleAddressFields() {
+            const privateYes = document.getElementById('privateYes');
+            const addressFields = document.getElementById('addressFields');
+            
+            if (privateYes.checked) {
+                addressFields.classList.add('show');
+                // Make address fields required
+                addressFields.querySelectorAll('input, select').forEach(field => {
+                    field.required = true;
+                });
+            } else {
+                addressFields.classList.remove('show');
+                // Remove required from address fields
+                addressFields.querySelectorAll('input, select').forEach(field => {
+                    field.required = false;
+                });
+            }
+        }
+
+        // Populate dropdowns
+        function populateCountries() {
+            const countries = [
+                'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria',
+                'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan',
+                'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia',
+                'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Croatia',
+                'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of the Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt',
+                'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon',
+                'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana',
+                'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel',
+                'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos',
+                'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi',
+                'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova',
+                'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands',
+                'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Korea', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau',
+                'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia',
+                'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia',
+                'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan',
+                'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania',
+                'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda',
+                'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam',
+                'Yemen', 'Zambia', 'Zimbabwe'
+            ];
+
+            const countrySelects = document.querySelectorAll('select[name="placeOfBirth"], select[name="countryOfNationality"]');
+            countrySelects.forEach(select => {
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        function populateResidenceNumbers() {
+            const residenceNumbers = Array.from({length: 100}, (_, i) => `RN${String(i + 1).padStart(3, '0')}`);
+            const residenceSelect = document.querySelector('select[name="residenceNumber"]');
+            
+            residenceNumbers.forEach(number => {
+                const option = document.createElement('option');
+                option.value = number;
+                option.textContent = number;
+                residenceSelect.appendChild(option);
+            });
+        }
+
+        function populateProvinces() {
+            const provinces = [
+                'Azua', 'Baoruco', 'Barahona', 'Dajabón', 'Distrito Nacional', 'Duarte', 'Elías Piña', 'El Seibo', 'Espaillat', 'Hato Mayor',
+                'Hermanas Mirabal', 'Independencia', 'La Altagracia', 'La Romana', 'La Vega', 'María Trinidad Sánchez', 'Monseñor Nouel', 'Monte Cristi', 'Monte Plata', 'Pedernales',
+                'Peravia', 'Puerto Plata', 'Samaná', 'San Cristóbal', 'San José de Ocoa', 'San Juan', 'San Pedro de Macorís', 'Sánchez Ramírez', 'Santiago', 'Santiago Rodríguez', 'Santo Domingo',
+                'Valverde'
+            ];
+
+            const provinceSelect = document.querySelector('select[name="province"]');
+            provinces.forEach(province => {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            });
+        }
+
+        function updateMunicipalities() {
+            const provinceSelect = document.querySelector('select[name="province"]');
+            const municipalitySelect = document.querySelector('select[name="municipality"]');
+            const sectorSelect = document.querySelector('select[name="sector"]');
+            
+            // Clear existing options
+            municipalitySelect.innerHTML = '<option value="">Sélectionner</option>';
+            sectorSelect.innerHTML = '<option value="">Sélectionner</option>';
+            
+            const selectedProvince = provinceSelect.value;
+            
+            // Sample municipalities (in real app, this would be based on selected province)
+            const municipalities = ['Municipalité 1', 'Municipalité 2', 'Municipalité 3', 'Municipalité 4', 'Municipalité 5'];
+            
+            municipalities.forEach(municipality => {
+                const option = document.createElement('option');
+                option.value = municipality;
+                option.textContent = municipality;
+                municipalitySelect.appendChild(option);
+            });
+        }
+
+        function updateSectors() {
+            const municipalitySelect = document.querySelector('select[name="municipality"]');
+            const sectorSelect = document.querySelector('select[name="sector"]');
+            
+            // Clear existing options
+            sectorSelect.innerHTML = '<option value="">Sélectionner</option>';
+            
+            const selectedMunicipality = municipalitySelect.value;
+            
+            // Sample sectors (in real app, this would be based on selected municipality)
+            const sectors = ['Secteur 1', 'Secteur 2', 'Secteur 3', 'Secteur 4', 'Secteur 5'];
+            
+            sectors.forEach(sector => {
+                const option = document.createElement('option');
+                option.value = sector;
+                option.textContent = sector;
+                sectorSelect.appendChild(option);
+            });
+        }
+
+        function populateAirports() {
+            const airports = [
+                'Aéroport International Las Américas (SDQ)',
+                'Aéroport International Gregorio Luperón (POP)',
+                'Aéroport International La Romana (LRM)',
+                'Aéroport International Punta Cana (PUJ)',
+                'Aéroport International Santiago (STI)',
+                'Aéroport International El Catey (AZS)',
+                'Aéroport International La Isabela (JBQ)'
+            ];
+
+            const airportSelect = document.querySelector('select[name="portOfDisembarkation"]');
+            airports.forEach(airport => {
+                const option = document.createElement('option');
+                option.value = airport;
+                option.textContent = airport;
+                airportSelect.appendChild(option);
+            });
+        }
+
+        function populateTransportationCompanies() {
+            const companies = [
+                'American Airlines', 'Delta Air Lines', 'United Airlines', 'JetBlue Airways', 'Spirit Airlines',
+                'Air Canada', 'WestJet', 'British Airways', 'Air France', 'Lufthansa',
+                'Iberia', 'KLM', 'Swiss International Air Lines', 'Turkish Airlines', 'Emirates',
+                'Qatar Airways', 'Copa Airlines', 'Avianca', 'LATAM Airlines', 'Aeromexico'
+            ];
+
+            const companySelect = document.querySelector('select[name="transportationCompany"]');
+            companies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                companySelect.appendChild(option);
+            });
+        }
+
+        // Form validation
+        function validateForm() {
+            const form = document.getElementById('migratoryForm');
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#e9ecef';
+                }
+            });
+
+            // Validate passport confirmation
+            const passport = form.querySelector('[name="passport"]');
+            const confirmPassport = form.querySelector('[name="confirmPassport"]');
+            
+            if (passport.value !== confirmPassport.value) {
+                confirmPassport.style.borderColor = '#e74c3c';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateAndSubmit() {
+            if (validateForm()) {
+                // Save form data to localStorage
+                saveFormData();
+                
+                // Redirect to step 3
+                window.location.href = '3 class.html';
+            } else {
+                alert('Veuillez remplir tous les champs obligatoires.');
+            }
+        }
+
+        function generateApplicationCode() {
+            const timestamp = Date.now().toString(36);
+            const random = Math.random().toString(36).substr(2, 5);
+            return `ET-${timestamp}-${random}`.toUpperCase();
+        }
+
+        function showSuccessModal(applicationCode) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 30px;
+                    border-radius: 15px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                ">
+                    <i class="fas fa-check-circle" style="font-size: 60px; color: #28a745; margin-bottom: 20px;"></i>
+                    <h2 style="color: #2c3e50; margin-bottom: 15px;">Formulaire soumis avec succès!</h2>
+                    <p style="color: #6c757d; margin-bottom: 20px;">Votre code d'application est:</p>
+                    <div style="
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 8px;
+                        margin-bottom: 20px;
+                        font-family: monospace;
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: #007bff;
+                        border: 2px solid #007bff;
+                    ">${applicationCode}</div>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button onclick="copyApplicationCode('${applicationCode}')" style="
+                            background: #6c757d;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        ">
+                            <i class="fas fa-copy"></i> Copier
+                        </button>
+                        <button onclick="downloadPDF('${applicationCode}')" style="
+                            background: #28a745;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        ">
+                            <i class="fas fa-download"></i> Télécharger PDF
+                        </button>
+                    </div>
+                    <button onclick="closeModal()" style="
+                        background: #007bff;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        margin-top: 15px;
+                        font-size: 14px;
+                    ">Fermer</button>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        function copyApplicationCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copié dans le presse-papiers!');
+            }).catch(() => {
+                alert('Erreur lors de la copie du code.');
+            });
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function saveFormData() {
+            const form = document.getElementById('migratoryForm');
+            const formData = new FormData(form);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Save to localStorage with the correct key for confirmation page
+            localStorage.setItem('migratoryData', JSON.stringify(data));
+        }
+
+        function goBack() {
+            if (confirm('Êtes-vous sûr de vouloir revenir en arrière ?')) {
+                window.location.href = '1 class.html';
+            }
+        }
+
+        // Initialize form when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCountries();
+            populateResidenceNumbers();
+            populateProvinces();
+            populateAirports();
+            populateTransportationCompanies();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXIGENCES E-TICKET - RDC CONGO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-container {
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-title i {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .header-title h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-selector {
+            position: relative;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .language-selector:hover {
+            transform: translateY(-2px);
+        }
+
+        .language-selector select {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            appearance: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-selector select::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .language-selector:hover select::before {
+            left: 100%;
+        }
+
+        .language-selector select:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .language-selector select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 4px 20px rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .language-selector select option {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #2c3e50;
+            padding: 12px;
+            border: none;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .language-selector select option:hover {
+            background: linear-gradient(135deg, #ffed4e, #ffd700);
+            color: #1a252f;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .language-selector i {
+            position: absolute;
+            right: 0.75rem;
+            color: white;
+            font-size: 0.8rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            animation: arrowFloat 2s infinite ease-in-out;
+        }
+
+        .language-selector:hover i {
+            transform: translateY(-3px) rotate(180deg);
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .language-selector select:focus + i {
+            transform: translateY(-4px) rotate(180deg);
+            color: #ffd700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes arrowFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-1px);
+            }
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin-right: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            line-height: 1.7;
+        }
+
+        .content-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            color: #2c3e50;
+            font-size: 1rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .forms-list {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%);
+            border-radius: 12px;
+            border: 1px solid #e3f2fd;
+            transition: all 0.3s ease;
+        }
+
+        .form-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        }
+
+        .form-item i {
+            font-size: 1.2rem;
+            color: #667eea;
+            width: 24px;
+            text-align: center;
+        }
+
+        .form-item span {
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .legal-notice {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .legal-notice p {
+            color: #856404;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .warning-section {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .warning-header i {
+            font-size: 1.2rem;
+            color: #f39c12;
+        }
+
+        .warning-header h3 {
+            margin: 0;
+            color: #856404;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .warning-section p {
+            color: #856404;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 0 0 16px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+
+            .modal-header {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .form-item {
+                padding: 0.75rem;
+            }
+
+            .modal-footer {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .header-title h2 {
+                font-size: 1.2rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .content-section p {
+                font-size: 0.9rem;
+            }
+
+            .form-item span {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="header-title">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>EXIGENCES E-TICKET</h2>
+                </div>
+                <div class="header-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" onchange="changeLanguage(this.value)">
+                            <option value="fr">FRANÇAIS</option>
+                            <option value="en">ENGLISH</option>
+                            <option value="es">ESPAÑOL</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <button class="back-btn" onclick="goBackHome()" title="Retour à l'accueil">
+                        <i class="fas fa-home"></i>
+                    </button>
+                    <button class="close-btn" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="content-section">
+                    <p>Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays. Toute personne souhaitant visiter la RDC CONGO doit remplir deux formulaires de demande.</p>
+                </div>
+
+                <div class="forms-list">
+                    <div class="form-item">
+                        <i class="fas fa-plane-arrival"></i>
+                        <span>Pass d'arrivée (utilisé à l'entrée du pays)</span>
+                    </div>
+                    <div class="form-item">
+                        <i class="fas fa-plane-departure"></i>
+                        <span>Pass de départ (utilisé à la sortie du pays)</span>
+                    </div>
+                </div>
+
+                <div class="legal-notice">
+                    <p>Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays. Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.</p>
+                </div>
+
+                <div class="warning-section">
+                    <div class="warning-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Veuillez noter :</h3>
+                    </div>
+                    <p>Le billet électronique (e-Ticket) ne remplace pas un visa. Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa. Ces documents devront être présentés au service d'immigration et de sécurité à l'entrée et à la sortie du pays.</p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="copyContent()">
+                    <i class="fas fa-copy"></i>
+                    Copier les exigences
+                </button>
+                <button class="btn btn-primary" onclick="goBackHome()">
+                    <i class="fas fa-check"></i>
+                    Compris
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function closeModal() {
+            // In a real application, this would close the modal
+            // For this standalone file, we'll just show an alert
+            alert('Modal fermé - Retour à la page principale');
+        }
+
+        function goBackHome() {
+            // Navigate back to the home page
+            window.location.href = 'index.html';
+        }
+
+        function copyContent() {
+            const content = `EXIGENCES E-TICKET
+
+Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays.
+
+FORMULAIRES REQUIS:
+• Pass d'arrivée (utilisé à l'entrée du pays)
+• Pass de départ (utilisé à la sortie du pays)
+
+IMPORTANT:
+Le billet électronique (e-Ticket) ne remplace pas un visa. Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa.`;
+
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Contenu copié dans le presse-papiers!');
+            }).catch(() => {
+                alert('Impossible de copier le contenu');
+            });
+        }
+
+        function changeLanguage(lang) {
+            console.log('Language changed to:', lang);
+            
+            // Language translations
+            const translations = {
+                fr: {
+                    title: 'EXIGENCES E-TICKET',
+                    intro: 'Le gouvernement de la RDC CONGO et SERVICE D\'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays. Toute personne souhaitant visiter la RDC CONGO doit remplir deux formulaires de demande.',
+                    arrivalPass: 'Pass d\'arrivée (utilisé à l\'entrée du pays)',
+                    departurePass: 'Pass de départ (utilisé à la sortie du pays)',
+                    legalNotice: 'Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s\'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays. Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.',
+                    warningTitle: 'Veuillez noter :',
+                    warningText: 'Le billet électronique (e-Ticket) ne remplace pas un visa. Si vous êtes citoyen d\'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa. Ces documents devront être présentés au service d\'immigration et de sécurité à l\'entrée et à la sortie du pays.',
+                    copyButton: 'Copier les exigences',
+                    understoodButton: 'Compris'
+                },
+                en: {
+                    title: 'E-TICKET REQUIREMENTS',
+                    intro: 'The government of DRC CONGO and IMMIGRATION SERVICE issues an online document called e-Ticket, designed to track tourists entering and leaving the country. Anyone wishing to visit DRC CONGO must complete two application forms.',
+                    arrivalPass: 'Arrival Pass (used for entry into the country)',
+                    departurePass: 'Departure Pass (used for exit from the country)',
+                    legalNotice: 'The pass issued by the government of DRC CONGO is a legal requirement, and anyone not obtaining it risks not being allowed to enter or leave the country. If a visitor knows both their arrival and departure dates from DRC CONGO, they can use a single application for both passes.',
+                    warningTitle: 'Please note:',
+                    warningText: 'The electronic ticket (e-Ticket) does not replace a visa. If you are a citizen of a country that requires a visa to enter DRC CONGO, you must obtain both an e-Ticket and a visa. These documents must be presented to immigration and security services upon both entry and exit.',
+                    copyButton: 'Copy requirements',
+                    understoodButton: 'Understood'
+                },
+                es: {
+                    title: 'REQUISITOS E-TICKET',
+                    intro: 'El gobierno de RDC CONGO y el SERVICIO DE INMIGRACIÓN emite un documento en línea llamado e-Ticket, diseñado para rastrear a los turistas que entran y salen del país. Cualquier persona que desee visitar RDC CONGO debe completar dos formularios de solicitud.',
+                    arrivalPass: 'Pase de llegada (utilizado para la entrada al país)',
+                    departurePass: 'Pase de salida (utilizado para la salida del país)',
+                    legalNotice: 'El pase emitido por el gobierno de RDC CONGO es un requisito legal, y cualquier persona que no lo obtenga corre el riesgo de no ser autorizada a entrar o salir del país. Si un visitante conoce las fechas de su llegada y salida de RDC CONGO, puede usar una sola solicitud para ambos pases.',
+                    warningTitle: 'Tenga en cuenta:',
+                    warningText: 'El billete electrónico (e-Ticket) no reemplaza una visa. Si usted es ciudadano de un país que requiere visa para entrar en RDC CONGO, debe obtener tanto un e-Ticket como una visa. Estos documentos deben presentarse al servicio de inmigración y seguridad tanto a la entrada como a la salida.',
+                    copyButton: 'Copiar requisitos',
+                    understoodButton: 'Entendido'
+                }
+            };
+            
+            const currentLang = translations[lang];
+            if (!currentLang) return;
+            
+            // Update title
+            document.querySelector('.header-title h2').textContent = currentLang.title;
+            
+            // Update content
+            document.querySelector('.content-section p').textContent = currentLang.intro;
+            
+            // Update form items
+            const formItems = document.querySelectorAll('.form-item span');
+            formItems[0].textContent = currentLang.arrivalPass;
+            formItems[1].textContent = currentLang.departurePass;
+            
+            // Update legal notice
+            document.querySelector('.legal-notice p').textContent = currentLang.legalNotice;
+            
+            // Update warning section
+            document.querySelector('.warning-header h3').textContent = currentLang.warningTitle;
+            document.querySelector('.warning-section p').textContent = currentLang.warningText;
+            
+            // Update buttons
+            document.querySelector('.btn-secondary').innerHTML = `<i class="fas fa-copy"></i> ${currentLang.copyButton}`;
+            document.querySelector('.btn-primary').innerHTML = `<i class="fas fa-check"></i> ${currentLang.understoodButton}`;
+            
+            // Show notification
+            showLanguageNotification(lang);
+        }
+        
+        function showLanguageNotification(lang) {
+            const langNames = {
+                fr: 'Français',
+                en: 'English',
+                es: 'Español'
+            };
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-weight: 600;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = `Langue changée: ${langNames[lang]}`;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.querySelector('.modal-container').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Consulter E-TICKET - RDC Congo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .logo i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .logo-text h1 {
+            color: #2d3748;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            color: #718096;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .title {
+            color: #2d3748;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .form-container {
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #2d3748;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #a0aec0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+            transform: translateY(-1px);
+        }
+
+        .info-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            padding: 25px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .info-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .result-section {
+            display: none;
+            background: #f0fff4;
+            border: 2px solid #68d391;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .result-header i {
+            color: #38a169;
+            font-size: 20px;
+        }
+
+        .result-header h3 {
+            color: #2f855a;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-item label {
+            color: #718096;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .detail-item span {
+            color: #2d3748;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .error-section {
+            display: none;
+            background: #fed7d7;
+            border: 2px solid #f56565;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            color: #c53030;
+        }
+
+        .error-section.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 60px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .language-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+
+        .exigences-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 120px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exigences-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.3);
+            background: linear-gradient(135deg, #ff5252 0%, #e64a19 100%);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #718096;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f7fafc;
+            color: #4a5568;
+        }
+
+        .modal-body {
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .modal-body h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .modal-body ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .language-switcher {
+                top: 15px;
+                right: 15px;
+                gap: 8px;
+            }
+            
+            .language-btn,
+            .exigences-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+                min-width: 50px;
+                height: 45px;
+            }
+            
+            .exigences-btn {
+                min-width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+                gap: 6px;
+            }
+            
+            .language-btn,
+            .exigences-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+                min-width: 45px;
+                height: 40px;
+            }
+            
+            .exigences-btn {
+                min-width: 80px;
+            }
+
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="language-btn" onclick="toggleLanguage()">
+            <span id="currentLang">FR</span>
+        </button>
+        <button class="exigences-btn" onclick="showExigencesModal()">
+            EXIGENCES
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>E-TICKET</h1>
+                    <p>RDC CONGO</p>
+                </div>
+            </div>
+            <h1 class="title" data-lang="fr">Consulter votre E-TICKET</h1>
+            <p class="subtitle" data-lang="fr">Entrez les informations requises pour consulter votre e-ticket</p>
+        </div>
+
+        <div class="info-section">
+            <h3>
+                <i class="fas fa-info-circle"></i>
+                <span data-lang="fr">Informations importantes</span>
+            </h3>
+            <p data-lang="fr">
+                Pour consulter votre e-ticket, vous devez fournir votre numéro de passeport et votre code d'application. 
+                Ces informations sont nécessaires pour garantir la sécurité de vos données.
+            </p>
+        </div>
+
+        <div class="form-container">
+            <form id="consultForm">
+                <div class="form-group">
+                    <label for="passportNumber" data-lang="fr">Numéro de passeport *</label>
+                    <input type="text" id="passportNumber" name="passportNumber" required 
+                           placeholder="Ex: AB1234567" data-lang="fr">
+                </div>
+
+                <div class="form-group">
+                    <label for="applicationCode" data-lang="fr">Code d'application *</label>
+                    <input type="text" id="applicationCode" name="applicationCode" required 
+                           placeholder="Ex: ET-25-3NEMY7-mdqznd0a" data-lang="fr">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    <span data-lang="fr">Consulter l'E-TICKET</span>
+                </button>
+            </form>
+
+            <button type="button" class="btn btn-secondary" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span data-lang="fr">Retour à l'accueil</span>
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p data-lang="fr">Recherche en cours...</p>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-header">
+                <i class="fas fa-check-circle"></i>
+                <h3 data-lang="fr">E-TICKET trouvé</h3>
+            </div>
+            <div class="result-details">
+                <div class="detail-item">
+                    <label data-lang="fr">Statut</label>
+                    <span id="status">Validé</span>
+                </div>
+                <div class="detail-item">
+                    <label data-lang="fr">Date de création</label>
+                    <span id="creationDate">15/12/2024</span>
+                </div>
+                <div class="detail-item">
+                    <label data-lang="fr">Type de voyage</label>
+                    <span id="travelType">Arrivée</span>
+                </div>
+                <div class="detail-item">
+                    <label data-lang="fr">Date de voyage</label>
+                    <span id="travelDate">20/12/2024</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="error-section" id="errorSection">
+            <h3>
+                <i class="fas fa-exclamation-triangle"></i>
+                <span data-lang="fr">E-TICKET non trouvé</span>
+            </h3>
+            <p data-lang="fr">
+                Aucun e-ticket correspondant aux informations fournies n'a été trouvé. 
+                Veuillez vérifier vos informations et réessayer.
+            </p>
+        </div>
+    </div>
+
+    <!-- EXIGENCES Modal -->
+    <div class="modal-overlay" id="exigencesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">EXIGENCES E-TICKET</h2>
+                <button class="modal-close" onclick="closeExigencesModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays.</p>
+                
+                <h3>Formulaires requis :</h3>
+                <ul>
+                    <li><strong>Pass d'arrivée :</strong> Utilisé à l'entrée du pays</li>
+                    <li><strong>Pass de départ :</strong> Utilisé à la sortie du pays</li>
+                </ul>
+                
+                <p>Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays.</p>
+                
+                <p>Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.</p>
+                
+                <h3>Informations importantes :</h3>
+                <ul>
+                    <li>Le billet électronique (e-Ticket) ne remplace pas un visa</li>
+                    <li>Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa</li>
+                    <li>Ces documents devront être présentés au service d'immigration et de sécurité à l'entrée et à la sortie du pays</li>
+                    <li>Présentez le document à l'arrivée et la sortie</li>
+                </ul>
+                
+                <h3>📋 DOCUMENTS REQUIS:</h3>
+                <ul>
+                    <li>Passeport valide (minimum 6 mois de validité)</li>
+                    <li>Photo d'identité récente (format 3x4 cm)</li>
+                    <li>Billet d'avion aller-retour ou de sortie</li>
+                    <li>Justificatif d'hébergement au Congo</li>
+                    <li>Preuve de ressources financières suffisantes</li>
+                </ul>
+                
+                <h3>💰 FRAIS:</h3>
+                <ul>
+                    <li>E-Ticket principal: $50 USD</li>
+                    <li>Visiteurs supplémentaires: $0 USD</li>
+                    <li>Paiement par VISA, Mastercard, Wave, M-Pesa</li>
+                </ul>
+                
+                <h3>⏰ DÉLAIS:</h3>
+                <ul>
+                    <li>Demande: 72h avant le voyage</li>
+                    <li>Traitement: 24-48h</li>
+                    <li>Validité: 90 jours</li>
+                </ul>
+                
+                <h3>⚠️ IMPORTANT:</h3>
+                <ul>
+                    <li>Tous les champs marqués (*) sont obligatoires</li>
+                    <li>Vérifiez vos informations avant soumission</li>
+                    <li>Gardez une copie de votre e-Ticket</li>
+                    <li>Présentez le document à l'arrivée et la sortie</li>
+                </ul>
+                
+                <h3>🔒 SÉCURITÉ:</h3>
+                <ul>
+                    <li>Paiement sécurisé SSL</li>
+                    <li>Données protégées</li>
+                    <li>Service officiel du gouvernement</li>
+                </ul>
+                
+                <button class="copy-btn" onclick="copyExigences()">
+                    <i class="fas fa-copy"></i>
+                    Copier les exigences
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'fr';
+        const languages = {
+            fr: {
+                title: 'Consulter votre E-TICKET',
+                subtitle: 'Entrez les informations requises pour consulter votre e-ticket',
+                passportNumber: 'Numéro de passeport *',
+                applicationCode: 'Code d\'application *',
+                searchButton: 'Consulter l\'E-TICKET',
+                backButton: 'Retour à l\'accueil',
+                loading: 'Recherche en cours...',
+                importantInfo: 'Informations importantes',
+                importantInfoText: 'Pour consulter votre e-ticket, vous devez fourrir votre numéro de passeport et votre code d\'application. Ces informations sont nécessaires pour garantir la sécurité de vos données.',
+                found: 'E-TICKET trouvé',
+                notFound: 'E-TICKET non trouvé',
+                notFoundText: 'Aucun e-ticket correspondant aux informations fournies n\'a été trouvé. Veuillez vérifier vos informations et réessayer.',
+                status: 'Statut',
+                creationDate: 'Date de création',
+                travelType: 'Type de voyage',
+                travelDate: 'Date de voyage',
+                passportPlaceholder: 'Ex: AB1234567',
+                codePlaceholder: 'Ex: ET-25-3NEMY7-mdqznd0a'
+            },
+            en: {
+                title: 'Consult your E-TICKET',
+                subtitle: 'Enter the required information to consult your e-ticket',
+                passportNumber: 'Passport number *',
+                applicationCode: 'Application code *',
+                searchButton: 'Consult E-TICKET',
+                backButton: 'Back to home',
+                loading: 'Searching...',
+                importantInfo: 'Important information',
+                importantInfoText: 'To consult your e-ticket, you must provide your passport number and application code. This information is necessary to ensure the security of your data.',
+                found: 'E-TICKET found',
+                notFound: 'E-TICKET not found',
+                notFoundText: 'No e-ticket matching the provided information was found. Please check your information and try again.',
+                status: 'Status',
+                creationDate: 'Creation date',
+                travelType: 'Travel type',
+                travelDate: 'Travel date',
+                passportPlaceholder: 'Ex: AB1234567',
+                codePlaceholder: 'Ex: ET-25-3NEMY7-mdqznd0a'
+            },
+            es: {
+                title: 'Consultar su E-TICKET',
+                subtitle: 'Ingrese la información requerida para consultar su e-ticket',
+                passportNumber: 'Número de pasaporte *',
+                applicationCode: 'Código de aplicación *',
+                searchButton: 'Consultar E-TICKET',
+                backButton: 'Volver al inicio',
+                loading: 'Buscando...',
+                importantInfo: 'Información importante',
+                importantInfoText: 'Para consultar su e-ticket, debe proporcionar su número de pasaporte y código de aplicación. Esta información es necesaria para garantizar la seguridad de sus datos.',
+                found: 'E-TICKET encontrado',
+                notFound: 'E-TICKET no encontrado',
+                notFoundText: 'No se encontró ningún e-ticket que coincida con la información proporcionada. Por favor, verifique su información e inténtelo de nuevo.',
+                status: 'Estado',
+                creationDate: 'Fecha de creación',
+                travelType: 'Tipo de viaje',
+                travelDate: 'Fecha de viaje',
+                passportPlaceholder: 'Ej: AB1234567',
+                codePlaceholder: 'Ej: ET-25-3NEMY7-mdqznd0a'
+            }
+        };
+
+        function toggleLanguage() {
+            const langOrder = ['fr', 'en', 'es'];
+            const currentIndex = langOrder.indexOf(currentLanguage);
+            const nextIndex = (currentIndex + 1) % langOrder.length;
+            currentLanguage = langOrder[nextIndex];
+            
+            document.getElementById('currentLang').textContent = currentLanguage.toUpperCase();
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const lang = languages[currentLanguage];
+            
+            // Update all elements with data-lang attribute
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.textContent.trim();
+                if (lang[key]) {
+                    element.textContent = lang[key];
+                }
+            });
+
+            // Update placeholders
+            document.getElementById('passportNumber').placeholder = lang.passportPlaceholder;
+            document.getElementById('applicationCode').placeholder = lang.codePlaceholder;
+
+            // Update specific elements by their IDs
+            const titleElement = document.querySelector('.title[data-lang]');
+            if (titleElement) titleElement.textContent = lang.title;
+            
+            const subtitleElement = document.querySelector('.subtitle[data-lang]');
+            if (subtitleElement) subtitleElement.textContent = lang.subtitle;
+            
+            const passportLabel = document.querySelector('label[for="passportNumber"]');
+            if (passportLabel) passportLabel.textContent = lang.passportNumber;
+            
+            const codeLabel = document.querySelector('label[for="applicationCode"]');
+            if (codeLabel) codeLabel.textContent = lang.applicationCode;
+            
+            const searchButton = document.querySelector('.btn-primary span');
+            if (searchButton) searchButton.textContent = lang.searchButton;
+            
+            const backButton = document.querySelector('.btn-secondary span');
+            if (backButton) backButton.textContent = lang.backButton;
+            
+            const loadingText = document.querySelector('#loading p');
+            if (loadingText) loadingText.textContent = lang.loading;
+            
+            const importantInfoTitle = document.querySelector('.info-section h3 span');
+            if (importantInfoTitle) importantInfoTitle.textContent = lang.importantInfo;
+            
+            const importantInfoText = document.querySelector('.info-section p');
+            if (importantInfoText) importantInfoText.textContent = lang.importantInfoText;
+            
+            const foundTitle = document.querySelector('.result-header h3');
+            if (foundTitle) foundTitle.textContent = lang.found;
+            
+            const notFoundTitle = document.querySelector('.error-section h3 span');
+            if (notFoundTitle) notFoundTitle.textContent = lang.notFound;
+            
+            const notFoundText = document.querySelector('.error-section p');
+            if (notFoundText) notFoundText.textContent = lang.notFoundText;
+            
+            // Update result detail labels
+            const statusLabel = document.querySelector('.detail-item label[data-lang]');
+            if (statusLabel) statusLabel.textContent = lang.status;
+            
+            const creationDateLabel = document.querySelectorAll('.detail-item label[data-lang]')[1];
+            if (creationDateLabel) creationDateLabel.textContent = lang.creationDate;
+            
+            const travelTypeLabel = document.querySelectorAll('.detail-item label[data-lang]')[2];
+            if (travelTypeLabel) travelTypeLabel.textContent = lang.travelType;
+            
+            const travelDateLabel = document.querySelectorAll('.detail-item label[data-lang]')[3];
+            if (travelDateLabel) travelDateLabel.textContent = lang.travelDate;
+        }
+
+        function showLoading() {
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('errorSection').classList.remove('show');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('show');
+        }
+
+        function showResult() {
+            hideLoading();
+            document.getElementById('resultSection').classList.add('show');
+            document.getElementById('errorSection').classList.remove('show');
+        }
+
+        function showError() {
+            hideLoading();
+            document.getElementById('errorSection').classList.add('show');
+            document.getElementById('resultSection').classList.remove('show');
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('consultForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const passportNumber = document.getElementById('passportNumber').value.trim();
+            const applicationCode = document.getElementById('applicationCode').value.trim();
+            
+            if (!passportNumber || !applicationCode) {
+                alert(currentLanguage === 'fr' ? 'Veuillez remplir tous les champs obligatoires.' : 
+                      currentLanguage === 'en' ? 'Please fill in all required fields.' : 
+                      'Por favor complete todos los campos obligatorios.');
+                return;
+            }
+
+            showLoading();
+
+            // Simulate API call
+            setTimeout(() => {
+                // For demo purposes, show result if passport contains "123" and code contains "ET"
+                if (passportNumber.includes('123') && applicationCode.includes('ET')) {
+                    showResult();
+                } else {
+                    showError();
+                }
+            }, 2000);
+        });
+
+        // Initialize language
+        updateLanguage();
+
+        // EXIGENCES Modal Functions
+        function showExigencesModal() {
+            document.getElementById('exigencesModal').classList.add('show');
+        }
+
+        function closeExigencesModal() {
+            document.getElementById('exigencesModal').classList.remove('show');
+        }
+
+        function copyExigences() {
+            const exigencesText = `EXIGENCES E-TICKET
+
+Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays.
+
+FORMULAIRES REQUIS :
+- Pass d'arrivée : Utilisé à l'entrée du pays
+- Pass de départ : Utilisé à la sortie du pays
+
+Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays.
+
+Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.
+
+INFORMATIONS IMPORTANTES :
+- Le billet électronique (e-Ticket) ne remplace pas un visa
+- Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa
+- Ces documents devront être présentés au service d'immigration et de sécurité à l'entrée et à la sortie du pays
+- Présentez le document à l'arrivée et la sortie
+
+📋 DOCUMENTS REQUIS:
+• Passeport valide (minimum 6 mois de validité)
+• Photo d'identité récente (format 3x4 cm)
+• Billet d'avion aller-retour ou de sortie
+• Justificatif d'hébergement au Congo
+• Preuve de ressources financières suffisantes
+
+💰 FRAIS:
+• E-Ticket principal: $50 USD
+• Visiteurs supplémentaires: $0 USD
+• Paiement par VISA, Mastercard, Wave, M-Pesa
+
+⏰ DÉLAIS:
+• Demande: 72h avant le voyage
+• Traitement: 24-48h
+• Validité: 90 jours
+
+⚠️ IMPORTANT:
+• Tous les champs marqués (*) sont obligatoires
+• Vérifiez vos informations avant soumission
+• Gardez une copie de votre e-Ticket
+• Présentez le document à l'arrivée et la sortie
+
+🔒 SÉCURITÉ:
+• Paiement sécurisé SSL
+• Données protégées
+• Service officiel du gouvernement`;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(exigencesText).then(() => {
+                    showNotification('Exigences copiées avec succès !', 'success');
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(exigencesText);
+                });
+            } else {
+                fallbackCopyTextToClipboard(exigencesText);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showNotification('Exigences copiées avec succès !', 'success');
+            } catch (err) {
+                showNotification('Erreur lors de la copie', 'error');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#48bb78' : '#f56565'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 1001;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('exigencesModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExigencesModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeExigencesModal();
+            }
+        });
+    </script>
+</body>
+</html> 

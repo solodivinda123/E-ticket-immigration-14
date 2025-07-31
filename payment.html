@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-TICKET Payment - DRC Congo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            background: white;
+            color: #1e3c72;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .payment-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        .payment-message {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #dc3545;
+        }
+
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 2px solid #dee2e6;
+            margin-top: 15px;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        .payment-methods {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .payment-methods p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .card-logos {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .card-logo {
+            width: 60px;
+            height: 40px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .card-logo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .visa {
+            background: linear-gradient(135deg, #1a1f71 0%, #00539c 100%);
+            color: white;
+        }
+
+        .mastercard {
+            background: linear-gradient(135deg, #eb001b 0%, #f79e1b 100%);
+            color: white;
+        }
+
+        .wave {
+            background: linear-gradient(135deg, #00d4aa 0%, #0099cc 100%);
+            color: white;
+        }
+
+        .mpesa {
+            background: linear-gradient(135deg, #00a651 0%, #007a3d 100%);
+            color: white;
+        }
+
+        .payment-button {
+            width: 100%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .payment-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .security-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .security-icon {
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+
+        .security-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .secure-label {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .ssl-text {
+            color: #28a745;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-logo .logo {
+            background: white;
+            color: #1e3c72;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .footer-text {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .footer-text p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-text .migration {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .payment-container {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            .footer {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-container {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .payment-button:hover {
+            animation: pulse 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">DGM</div>
+            <div class="logo-text">
+                <h1>E-TICKET</h1>
+                <p>RDC CONGO</p>
+            </div>
+        </div>
+        <div class="header-buttons">
+            <button class="header-btn" onclick="copyExigences()">
+                <i class="fas fa-list"></i>
+                EXIGENCES
+            </button>
+            <button class="header-btn" onclick="toggleLanguage()">
+                <i class="fas fa-globe"></i>
+                <span id="currentLanguage">FRANÇAIS</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="payment-container">
+            <div class="payment-message">
+                <span data-lang="en">Please proceed to our secure payment page to complete your order.</span>
+                <span data-lang="fr" style="display: none;">Veuillez procéder à notre page de paiement sécurisée pour finaliser votre commande.</span>
+                <span data-lang="es" style="display: none;">Por favor, proceda a nuestra página de pago segura para completar su pedido.</span>
+            </div>
+
+            <div class="order-summary">
+                <div class="order-item">
+                    <span class="item-name" data-lang="en">e-Ticket application*</span>
+                    <span class="item-name" data-lang="fr" style="display: none;">Demande de e-Ticket*</span>
+                    <span class="item-name" data-lang="es" style="display: none;">Solicitud de e-Ticket*</span>
+                    <span class="item-price">$50.00</span>
+                </div>
+                <div class="order-item">
+                    <span class="item-name" data-lang="en">e-Ticket application for Extra Visitors</span>
+                    <span class="item-name" data-lang="fr" style="display: none;">Demande de e-Ticket pour visiteurs supplémentaires</span>
+                    <span class="item-name" data-lang="es" style="display: none;">Solicitud de e-Ticket para visitantes adicionales</span>
+                    <span class="item-price">$0.00</span>
+                </div>
+                <div class="total-section">
+                    <span class="total-label" data-lang="en">Total</span>
+                    <span class="total-label" data-lang="fr" style="display: none;">Total</span>
+                    <span class="total-label" data-lang="es" style="display: none;">Total</span>
+                    <span class="total-amount">$50</span>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <p data-lang="en">Please note: at this moment we only accept</p>
+                <p data-lang="fr" style="display: none;">Veuillez noter: à ce moment, nous n'acceptons que</p>
+                <p data-lang="es" style="display: none;">Tenga en cuenta: en este momento solo aceptamos</p>
+                <div class="card-logos">
+                    <div class="card-logo visa">VISA</div>
+                    <div class="card-logo mastercard">MC</div>
+                    <div class="card-logo wave">WAVE</div>
+                    <div class="card-logo mpesa">M-PESA</div>
+                </div>
+            </div>
+
+            <button class="payment-button" onclick="proceedToPayment()">
+                <i class="fas fa-credit-card"></i>
+                <span data-lang="en">Go to Payment</span>
+                <span data-lang="fr" style="display: none;">Aller au Paiement</span>
+                <span data-lang="es" style="display: none;">Ir al Pago</span>
+            </button>
+
+            <div class="security-indicator">
+                <i class="fas fa-lock security-icon"></i>
+                <div class="security-text">
+                    <span class="secure-label">SECURE</span>
+                    <span class="ssl-text">SSL ENCRYPTION</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <div class="logo">DGM</div>
+            <div class="footer-text">
+                <p>GOUVERNEMENT DE LA RDC CONGO</p>
+                <p class="migration">MIGRATION</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 DIRECTION GÉNÉRALE DE MIGRATION Tous droits réservés.
+        </div>
+    </footer>
+
+    <script>
+        let currentLanguage = 'en'; // Default language
+
+        function toggleLanguage() {
+            const languages = ['en', 'fr', 'es'];
+            const languageNames = {
+                'en': 'ENGLISH',
+                'fr': 'FRANÇAIS', 
+                'es': 'ESPAÑOL'
+            };
+            
+            // Find current language index and move to next
+            const currentIndex = languages.indexOf(currentLanguage);
+            const nextIndex = (currentIndex + 1) % languages.length;
+            currentLanguage = languages[nextIndex];
+            
+            // Update language display
+            document.getElementById('currentLanguage').textContent = languageNames[currentLanguage];
+            
+            // Hide all language elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                element.style.display = 'none';
+            });
+            
+            // Show elements for current language
+            document.querySelectorAll(`[data-lang="${currentLanguage}"]`).forEach(element => {
+                element.style.display = 'inline';
+            });
+            
+            // Update payment button text
+            const paymentButton = document.querySelector('.payment-button');
+            const buttonTexts = paymentButton.querySelectorAll('[data-lang]');
+            buttonTexts.forEach(text => {
+                text.style.display = 'none';
+            });
+            const currentButtonText = paymentButton.querySelector(`[data-lang="${currentLanguage}"]`);
+            if (currentButtonText) {
+                currentButtonText.style.display = 'inline';
+            }
+        }
+
+                          function copyExigences() {
+             const exigences = {
+                 fr: `EXIGENCES E-TICKET
+
+Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays. Toute personne souhaitant visiter la RDC CONGO doit remplir deux formulaires de demande. Ces formulaires sont les suivants :
+
+Pass d'arrivée (utilisé à l'entrée du pays)
+Pass de départ (utilisé à la sortie du pays)
+
+Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays. Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.
+
+Veuillez noter :
+Le billet électronique (e-Ticket) ne remplace pas un visa. Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa. Ces documents devront être présentés au service d'immigration et de sécurité à l'entrée et à la sortie du pays.
+
+📋 DOCUMENTS REQUIS:
+• Passeport valide (minimum 6 mois de validité)
+• Photo d'identité récente (format 3x4 cm)
+• Billet d'avion aller-retour ou de sortie
+• Justificatif d'hébergement au Congo
+• Preuve de ressources financières suffisantes
+
+💰 FRAIS:
+• E-Ticket principal: $50 USD
+• Visiteurs supplémentaires: $0 USD
+• Paiement par VISA, Mastercard, Wave, M-Pesa
+
+⏰ DÉLAIS:
+• Demande: 72h avant le voyage
+• Traitement: 24-48h
+• Validité: 90 jours
+
+⚠️ IMPORTANT:
+• Tous les champs marqués (*) sont obligatoires
+• Vérifiez vos informations avant soumission
+• Gardez une copie de votre e-Ticket
+• Présentez le document à l'arrivée et la sortie
+
+🔒 SÉCURITÉ:
+• Paiement sécurisé SSL
+• Données protégées
+• Service officiel du gouvernement`,
+                 en: `E-TICKET REQUIREMENTS
+
+The government of DRC CONGO and IMMIGRATION SERVICE issues an online document called e-Ticket, designed to track tourists entering and leaving the country. Anyone wishing to visit DRC CONGO must fill out two application forms. These forms are as follows:
+
+Arrival pass (used at entry to the country)
+Departure pass (used at exit from the country)
+
+The pass issued by the government of DRC CONGO is a legal requirement, and anyone not obtaining it risks not being allowed to enter or leave the country. If a visitor knows their arrival and departure dates from DRC CONGO, they can use a single application for both passes.
+
+Please note:
+The electronic ticket (e-Ticket) does not replace a visa. If you are a citizen of a country that requires a visa to enter DRC CONGO, you must obtain both an e-Ticket and a visa. These documents must be presented to immigration and security services at entry and exit from the country.
+
+📋 REQUIRED DOCUMENTS:
+• Valid passport (minimum 6 months validity)
+• Recent identity photo (3x4 cm format)
+• Round-trip or exit plane ticket
+• Proof of accommodation in Congo
+• Proof of sufficient financial resources
+
+💰 FEES:
+• Main E-Ticket: $50 USD
+• Additional visitors: $0 USD
+• Payment by VISA, Mastercard, Wave, M-Pesa
+
+⏰ DEADLINES:
+• Application: 72h before travel
+• Processing: 24-48h
+• Validity: 90 days
+
+⚠️ IMPORTANT:
+• All fields marked (*) are mandatory
+• Verify your information before submission
+• Keep a copy of your e-Ticket
+• Present the document at arrival and departure
+
+🔒 SECURITY:
+• Secure SSL payment
+• Protected data
+• Official government service`,
+                 es: `REQUISITOS E-TICKET
+
+El gobierno de RDC CONGO y el SERVICIO DE INMIGRACIÓN emite un documento en línea llamado e-Ticket, diseñado para rastrear a los turistas que entran y salen del país. Cualquier persona que desee visitar RDC CONGO debe llenar dos formularios de solicitud. Estos formularios son los siguientes:
+
+Pase de llegada (utilizado en la entrada al país)
+Pase de salida (utilizado en la salida del país)
+
+El pase emitido por el gobierno de RDC CONGO es un requisito legal, y cualquier persona que no lo obtenga corre el riesgo de no ser autorizada a entrar o salir del país. Si un visitante conoce las fechas de su llegada y salida de RDC CONGO, puede usar una sola solicitud para ambos pases.
+
+Tenga en cuenta:
+El billete electrónico (e-Ticket) no reemplaza una visa. Si usted es ciudadano de un país que requiere visa para entrar a RDC CONGO, debe obtener tanto un e-Ticket como una visa. Estos documentos deberán ser presentados al servicio de inmigración y seguridad en la entrada y salida del país.
+
+📋 DOCUMENTOS REQUERIDOS:
+• Pasaporte válido (mínimo 6 meses de validez)
+• Foto de identidad reciente (formato 3x4 cm)
+• Boleto de avión de ida y vuelta o de salida
+• Comprobante de alojamiento en Congo
+• Prueba de recursos financieros suficientes
+
+💰 TARIFAS:
+• E-Ticket principal: $50 USD
+• Visitantes adicionales: $0 USD
+• Pago por VISA, Mastercard, Wave, M-Pesa
+
+⏰ PLAZOS:
+• Solicitud: 72h antes del viaje
+• Procesamiento: 24-48h
+• Validez: 90 días
+
+⚠️ IMPORTANTE:
+• Todos los campos marcados (*) son obligatorios
+• Verifique su información antes del envío
+• Mantenga una copia de su e-Ticket
+• Presente el documento a la llegada y salida
+
+🔒 SEGURIDAD:
+• Pago seguro SSL
+• Datos protegidos
+• Servicio oficial del gobierno`
+             };
+
+             // Show modal with exigences
+             showExigencesModal(exigences);
+         }
+
+                   function showExigencesModal(exigences) {
+              // Remove existing modal if any
+              const existingModal = document.querySelector('.exigences-modal');
+              if (existingModal) {
+                  existingModal.remove();
+              }
+
+              let currentModalLanguage = 'fr'; // Default language for modal
+
+              // Create modal overlay
+              const modal = document.createElement('div');
+              modal.className = 'exigences-modal';
+              modal.style.cssText = `
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: rgba(0, 0, 0, 0.7);
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  z-index: 10000;
+                  animation: fadeIn 0.3s ease-out;
+              `;
+
+              // Create modal content
+              const modalContent = document.createElement('div');
+              modalContent.style.cssText = `
+                  background: white;
+                  border-radius: 15px;
+                  padding: 30px;
+                  max-width: 600px;
+                  width: 90%;
+                  max-height: 80vh;
+                  overflow-y: auto;
+                  position: relative;
+                  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+              `;
+
+              // Add close button
+              const closeBtn = document.createElement('button');
+              closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+              closeBtn.style.cssText = `
+                  position: absolute;
+                  top: 15px;
+                  right: 20px;
+                  background: none;
+                  border: none;
+                  font-size: 1.5rem;
+                  color: #666;
+                  cursor: pointer;
+                  padding: 5px;
+                  border-radius: 50%;
+                  width: 40px;
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  transition: all 0.3s ease;
+              `;
+              closeBtn.onmouseover = () => closeBtn.style.background = '#f0f0f0';
+              closeBtn.onmouseout = () => closeBtn.style.background = 'transparent';
+              closeBtn.onclick = () => modal.remove();
+
+              // Add language button
+              const languageBtn = document.createElement('button');
+              languageBtn.innerHTML = '<i class="fas fa-globe"></i> <span id="modalLanguage">FRANÇAIS</span>';
+              languageBtn.style.cssText = `
+                  position: absolute;
+                  top: 15px;
+                  right: 70px;
+                  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+                  border: none;
+                  color: white;
+                  padding: 8px 15px;
+                  border-radius: 20px;
+                  font-size: 0.9rem;
+                  font-weight: 600;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  transition: all 0.3s ease;
+              `;
+              languageBtn.onmouseover = () => languageBtn.style.transform = 'translateY(-2px)';
+              languageBtn.onmouseout = () => languageBtn.style.transform = 'translateY(0)';
+
+              // Language switching function
+              function changeModalLanguage() {
+                  const languages = ['fr', 'en', 'es'];
+                  const languageNames = {
+                      'fr': 'FRANÇAIS',
+                      'en': 'ENGLISH',
+                      'es': 'ESPAÑOL'
+                  };
+                  
+                  const currentIndex = languages.indexOf(currentModalLanguage);
+                  const nextIndex = (currentIndex + 1) % languages.length;
+                  currentModalLanguage = languages[nextIndex];
+                  
+                  // Update language button text
+                  document.getElementById('modalLanguage').textContent = languageNames[currentModalLanguage];
+                  
+                  // Update content
+                  contentDiv.innerHTML = exigences[currentModalLanguage].replace(/\n/g, '<br>');
+                  
+                  // Update copy button text
+                  const copyButtonTexts = {
+                      'fr': '<i class="fas fa-copy"></i> Copier les exigences',
+                      'en': '<i class="fas fa-copy"></i> Copy requirements',
+                      'es': '<i class="fas fa-copy"></i> Copiar requisitos'
+                  };
+                  copyBtn.innerHTML = copyButtonTexts[currentModalLanguage];
+                  
+                  // Update title
+                  const titleTexts = {
+                      'fr': 'EXIGENCES E-TICKET',
+                      'en': 'E-TICKET REQUIREMENTS',
+                      'es': 'REQUISITOS E-TICKET'
+                  };
+                  title.textContent = titleTexts[currentModalLanguage];
+              }
+              
+              languageBtn.onclick = changeModalLanguage;
+
+              // Add title
+              const title = document.createElement('h2');
+              title.textContent = 'EXIGENCES E-TICKET';
+              title.style.cssText = `
+                  color: #1e3c72;
+                  margin-bottom: 20px;
+                  font-size: 1.8rem;
+                  font-weight: 700;
+                  text-align: center;
+                  border-bottom: 2px solid #1e3c72;
+                  padding-bottom: 10px;
+              `;
+
+              // Add content
+              const contentDiv = document.createElement('div');
+              contentDiv.innerHTML = exigences[currentModalLanguage].replace(/\n/g, '<br>');
+              contentDiv.style.cssText = `
+                  line-height: 1.6;
+                  color: #333;
+                  font-size: 1rem;
+              `;
+
+              // Add copy button
+              const copyBtn = document.createElement('button');
+              copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copier les exigences';
+              copyBtn.style.cssText = `
+                  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                  color: white;
+                  border: none;
+                  padding: 12px 25px;
+                  border-radius: 8px;
+                  font-size: 1rem;
+                  font-weight: 600;
+                  cursor: pointer;
+                  margin-top: 20px;
+                  width: 100%;
+                  transition: all 0.3s ease;
+              `;
+              copyBtn.onmouseover = () => copyBtn.style.transform = 'translateY(-2px)';
+              copyBtn.onmouseout = () => copyBtn.style.transform = 'translateY(0)';
+              copyBtn.onclick = () => {
+                  const currentContent = exigences[currentModalLanguage];
+                  if (navigator.clipboard) {
+                      navigator.clipboard.writeText(currentContent).then(() => {
+                          const messages = {
+                              'fr': 'Exigences copiées dans le presse-papiers!',
+                              'en': 'Requirements copied to clipboard!',
+                              'es': '¡Requisitos copiados al portapapeles!'
+                          };
+                          showNotification(messages[currentModalLanguage], 'success');
+                      }).catch(() => {
+                          fallbackCopyTextToClipboard(currentContent);
+                      });
+                  } else {
+                      fallbackCopyTextToClipboard(currentContent);
+                  }
+              };
+
+              // Assemble modal
+              modalContent.appendChild(closeBtn);
+              modalContent.appendChild(languageBtn);
+              modalContent.appendChild(title);
+              modalContent.appendChild(contentDiv);
+              modalContent.appendChild(copyBtn);
+              modal.appendChild(modalContent);
+              document.body.appendChild(modal);
+
+              // Close modal when clicking outside
+              modal.onclick = (e) => {
+                  if (e.target === modal) {
+                      modal.remove();
+                  }
+              };
+
+              // Close modal with Escape key
+              document.addEventListener('keydown', function closeOnEscape(e) {
+                  if (e.key === 'Escape') {
+                      modal.remove();
+                      document.removeEventListener('keydown', closeOnEscape);
+                  }
+              });
+          }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('Exigences copiées dans le presse-papiers!', 'success');
+            } catch (err) {
+                showNotification('Erreur lors de la copie', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showNotification(message, type) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#28a745' : '#dc3545'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: 500;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = message;
+
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            document.body.appendChild(notification);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        function proceedToPayment() {
+            // Add loading state
+            const button = document.querySelector('.payment-button');
+            const originalText = button.innerHTML;
+            
+            const loadingTexts = {
+                'en': '<i class="fas fa-spinner fa-spin"></i> Processing...',
+                'fr': '<i class="fas fa-spinner fa-spin"></i> Traitement...',
+                'es': '<i class="fas fa-spinner fa-spin"></i> Procesando...'
+            };
+            
+            button.innerHTML = loadingTexts[currentLanguage] || loadingTexts['en'];
+            button.disabled = true;
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // Here you would typically redirect to a payment gateway
+                const messages = {
+                    'en': 'Redirecting to secure payment gateway...',
+                    'fr': 'Redirection vers la passerelle de paiement sécurisée...',
+                    'es': 'Redirigiendo a la pasarela de pago segura...'
+                };
+                alert(messages[currentLanguage] || messages['en']);
+                
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to header buttons
+            const headerButtons = document.querySelectorAll('.header-btn');
+            headerButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click effects to payment button
+            const paymentButton = document.querySelector('.payment-button');
+            paymentButton.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+
+            // Initialize language display
+            toggleLanguage(); // Start with English
+        });
+    </script>
+</body>
+</html>

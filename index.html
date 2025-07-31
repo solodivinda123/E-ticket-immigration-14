@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>E-TICKET - RDC Congo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Add QR Code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="images/new-logo.png" alt="RDC Congo Logo" class="logo-img">
+                    </div>
+                    <div class="logo-text">
+                        <h1>E-TICKET</h1>
+                        <p>RDC CONGO</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-exigences-flash" onclick="openVoyageurPage()">
+                    <i class="fas fa-info-circle"></i>
+                    EXIGENCES
+                </button>
+                <div class="language-selector">
+                    <select id="languageSelect" onchange="changeLanguage(this.value)">
+                        <option value="fr">FRANÇAIS</option>
+                        <option value="en">ENGLISH</option>
+                        <option value="es">ESPAÑOL</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="airport-decoration">
+            <div class="plane-icon plane-1">
+                <i class="fas fa-plane"></i>
+            </div>
+            <div class="plane-icon plane-2">
+                <i class="fas fa-plane"></i>
+            </div>
+            <div class="plane-icon plane-3">
+                <i class="fas fa-plane"></i>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="phone-illustration">
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            <i class="fas fa-plane"></i>
+                            <span>Checklist</span>
+                        </div>
+                        <div class="checklist">
+                            <div class="checklist-item checked">
+                                <i class="fas fa-check"></i>
+                                <span>Documents</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="far fa-circle"></i>
+                                <span>Visa</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="far fa-circle"></i>
+                                <span>E-Ticket</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="travelers">
+                        <div class="traveler adult"></div>
+                        <div class="traveler adult"></div>
+                        <div class="traveler child"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <h2>Bienvenue sur la page d'accueil E-TICKET, le site d'immigration pour entrer et sortir sur le territoire de la RDC Congo</h2>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="openForm()">
+                        <i class="fas fa-file-alt"></i>
+                        FORMULAIRE D'E-TICKET
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='consult-ticket.html'">
+                        <i class="fas fa-search"></i>
+                        CONSULTER LE E-TICKET
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is E-TICKET Section -->
+    <section class="what-is-eticket">
+        <div class="container">
+            <h2>Qu'est-ce que le E-TICKET?</h2>
+            <div class="content">
+                <p>Le E-TICKET est un document électronique obligatoire pour tous les voyageurs entrant ou sortant du territoire de la RDC Congo. Il s'agit d'un système moderne et sécurisé qui remplace les anciens formulaires papier.</p>
+                <p>Ce document est requis par la Direction Générale de Migration (DGM) et la Direction Générale des Douanes (DGA) conformément à la loi 285-04 sur la migration et à la résolution 000-2023.</p>
+                <p>Cliquez ici pour accéder à la page du voyageur numérique:</p>
+                <button class="btn btn-orange" onclick="openExigencesInfoModal()">
+                    <i class="fas fa-hand-point-up"></i>
+                    Exigences
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructions Section -->
+    <section class="instructions">
+        <div class="container">
+            <h2>Instructions pour faire votre demande</h2>
+            <div class="instructions-grid">
+                <div class="instruction-card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Faire une demande</h3>
+                    <ol>
+                        <li>Cliquez sur le bouton <strong>Demande de billet électronique</strong></li>
+                        <li>Remplissez les informations demandées</li>
+                        <li>Cliquez sur la touche Entrée</li>
+                        <li>Si vous avez déjà une candidature, cliquez sur accès et saisissez votre numéro de candidature</li>
+                    </ol>
+                </div>
+                <div class="instruction-card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Dans le formulaire</h3>
+                    <ol>
+                        <li>Notez bien votre référence de dossier. Ce numéro et votre question de sécurité vous permettront d'accéder à votre formulaire à tout moment</li>
+                        <li>Remplissez correctement les informations demandées</li>
+                        <li>Le formulaire de Déclaration en Douanes est obligatoire pour les personnes majeures (18+)</li>
+                    </ol>
+                </div>
+                <div class="instruction-card">
+                    <div class="card-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Formulaire complété</h3>
+                    <ol>
+                        <li>Un E-TICKET avec un code QR sera émis</li>
+                        <li>Cliquez sur la touche Téléchargez PDF si vous voulez sauvegarder une copie sur votre appareil</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="logo-image">
+                    <img src="images/new-logo.png" alt="RDC Congo Logo" class="footer-logo-img">
+                </div>
+            </div>
+            <div class="footer-right">
+                <p>GOUVERNEMENT DE LA RDC CONGO</p>
+                <h3>MIGRATION</h3>
+                <i class="fas fa-dome"></i>
+            </div>
+        </div>
+        <div class="footer-bottom">
+                            <p>&copy; 2025 DIRECTION GÉNÉRALE DE MIGRATION</p>
+                            <p>Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Modal for E-TICKET Form -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Formulaire E-TICKET</h2>
+            <form id="eticketForm">
+                <div class="form-group">
+                    <label for="firstName">Prénom</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="passport">Numéro de passeport</label>
+                    <input type="text" id="passport" name="passport" required>
+                </div>
+                <div class="form-group">
+                    <label for="nationality">Nationalité</label>
+                    <select id="nationality" name="nationality" required>
+                        <option value="">Sélectionnez votre nationalité</option>
+                        <option value="FR">France</option>
+                        <option value="US">États-Unis</option>
+                        <option value="CA">Canada</option>
+                        <option value="ES">Espagne</option>
+                        <option value="DE">Allemagne</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="travelDate">Date de voyage</label>
+                    <input type="date" id="travelDate" name="travelDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="purpose">Motif du voyage</label>
+                    <select id="purpose" name="purpose" required>
+                        <option value="">Sélectionnez le motif</option>
+                        <option value="tourism">Tourisme</option>
+                        <option value="business">Affaires</option>
+                        <option value="family">Visite familiale</option>
+                        <option value="transit">Transit</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- E-TICKET Request Type Modal -->
+    <div id="requestTypeModal" class="modal">
+        <div class="modal-content request-type-modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="request-type-header">
+                <div class="question-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2>Quel type de demande souhaitez-vous formuler?</h2>
+            </div>
+            <div class="request-type-buttons">
+                <button class="btn btn-primary request-type-btn" onclick="openNewTicket()">
+                    <i class="fas fa-plus-circle"></i>
+                    Nouveau billet électronique
+                </button>
+                <button class="btn btn-secondary request-type-btn" onclick="openPreviousTicket()">
+                    <i class="fas fa-copy"></i>
+                    Créer à partir d'un précédent eTicket
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success">
+            <span class="close">&times;</span>
+            <div class="success-content">
+                <i class="fas fa-check-circle"></i>
+                <h2>E-TICKET Généré avec Succès!</h2>
+                <div class="qr-code">
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <p>Code QR: <span id="ticketNumber">ET-2025-001234</span></p>
+                </div>
+                <div class="ticket-actions">
+                    <button class="btn btn-primary" onclick="downloadPDF()">
+                        <i class="fas fa-download"></i>
+                        Télécharger PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeSuccessModal()">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- E-TICKET Form Page Modal -->
+    <div id="eticketFormPage" class="modal form-page-modal">
+        <div class="form-page-content">
+            <!-- Header -->
+            <div class="form-page-header">
+                <div class="form-page-logo">
+                    <img src="images/new-logo.png" alt="RDC Congo Logo" class="form-logo-img">
+                    <div class="form-logo-text">
+                        <h1>E-TICKET</h1>
+                        <p>RDC CONGO</p>
+                    </div>
+                </div>
+                <div class="form-page-language">
+                    <select id="formLanguageSelect" onchange="changeFormLanguage(this.value)">
+                        <option value="fr">FRANÇAIS</option>
+                        <option value="en">ENGLISH</option>
+                        <option value="es">ESPAÑOL</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <span class="close" onclick="closeFormPage()">&times;</span>
+            </div>
+
+            <!-- Main Content -->
+            <div class="form-page-body">
+                <!-- Left Section - Illustration and Notice -->
+                <div class="form-page-left">
+                    <div class="illustration-section">
+                        <div class="woman-photo">
+                            <img src="images/woman-smartphone-laptop.jpg" alt="Woman with smartphone and laptop" class="woman-image">
+                        </div>
+                    </div>
+                    
+                    <div class="notice-section">
+                        <div class="notice-box">
+                            <div class="notice-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="notice-content">
+                                <h3>Remarquer</h3>
+                                <p>Assurez-vous de saisir le numéro de passeport et la nationalité tels qu'ils apparaissent sur votre passeport avec lequel vous allez voyager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Section - Form -->
+                <div class="form-page-right">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h2><i class="fas fa-question-circle"></i> Formulaire d'E-TICKET</h2>
+                        </div>
+                        
+                        <div class="form-notice">
+                            <p>Les champs marqués d'un astérisque rouge sont obligatoires (*)</p>
+                        </div>
+
+                        <form id="eticketFormPageForm">
+                            <div class="form-group">
+                                <label for="travelCompanion">Voyagez vous accompagné d'une autre personne?</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="travelCompanion" name="travelCompanion">
+                                    <label for="travelCompanion" class="toggle-label">
+                                        <span class="toggle-text">NON</span>
+                                    </label>
+                                </div>
+                                <div class="companion-passport-group" style="display:none; margin-top:10px;">
+                                    <label for="companionPassport" style="font-weight:400; font-size:0.95em;">Numéro de passeport de l'accompagnant</label>
+                                    <input type="text" id="companionPassport" class="companion-passport" name="companionPassport" placeholder="Entrez le numéro de passeport">
+                                </div>
+                            </div>
+
+                            <div class="recaptcha-section">
+                                <div class="recaptcha-checkbox">
+                                    <input type="checkbox" id="recaptcha" name="recaptcha" required>
+                                </div>
+                                <div class="recaptcha-logo">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23000' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/></svg>" alt="reCAPTCHA">
+                                    <span>reCAPTCHA</span>
+                                    <a href="#">Confidentialité</a>
+                                    <a href="#">Conditions</a>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" onclick="openApplicationForm(); return false;">Valider</button>
+                                <button type="button" class="btn btn-secondary" onclick="closeFormPage()">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="form-page-footer">
+                <div class="footer-left">
+                    <div class="logo-image">
+                        <img src="images/new-logo.png" alt="RDC Congo Logo" class="footer-logo-img">
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <p>GOUVERNEMENT DE LA RDC CONGO</p>
+                    <h3>MIGRATION</h3>
+                    <i class="fas fa-dome"></i>
+
+                                    <option value="UA">Ukraine</option>
+                                    <option value="UY">Uruguay</option>
+                                    <option value="VU">Vanuatu</option>
+                                    <option value="VA">Vatican</option>
+                                    <option value="VE">Venezuela</option>
+                                    <option value="VN">Vietnam</option>
+                                    <option value="YE">Yémen</option>
+                                    <option value="ZM">Zambie</option>
+                                    <option value="ZW">Zimbabwe</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+    <!-- E-TICKET Application Form Step 3 Modal -->
+    <div id="eticketApplicationFormStep3" class="modal application-form-modal">
+        <div class="application-form-content">
+            <!-- Close Button -->
+            <span class="close" onclick="closeApplicationFormStep3()">&times;</span>
+            
+            <!-- Back Arrow Button -->
+            <span class="back-arrow" onclick="goBackToStep2()">
+                <i class="fas fa-chevron-left"></i>
+            </span>
+
+            <!-- Navigation Header -->
+            <div class="application-nav-header">
+                <div class="nav-logo">
+                    <img src="images/new-logo.png" alt="RDC Congo Logo" class="nav-logo-img">
+                    <div class="nav-logo-text">
+                        <h1>E-TICKET</h1>
+                        <p>RDC CONGO</p>
+                    </div>
+                </div>
+                <div class="nav-language">
+                    <select id="appLanguageSelectStep3" onchange="changeAppLanguageStep3(this.value)">
+                        <option value="fr">FRANÇAIS</option>
+                        <option value="en">ENGLISH</option>
+                        <option value="es">ESPAÑOL</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-text">INFORMATION GENERALE</div>
+                </div>
+                <div class="progress-line completed"></div>
+                <div class="progress-step completed">
+                    <div class="step-number">2</div>
+                    <div class="step-text">DONNEES MIGRATOIRES</div>
+                </div>
+                <div class="progress-line completed"></div>
+                <div class="progress-step active">
+                    <div class="step-number">3</div>
+                    <div class="step-text">INFORMATION DE DOUANNE</div>
+                </div>
+            </div>
+
+            <!-- Screenshot Section -->
+            <div class="screenshot-section">
+                <img src="images/airport-security-checkpoint.jpg" alt="Customs Checkpoint" class="step-screenshot">
+            </div>
+
+            <!-- Main Form Content -->
+            <div class="application-form-body">
+                <div class="form-section">
+                    <h2><i class="fas fa-shield-alt"></i> INFORMATION DE DOUANNE</h2>
+                    <div class="mandatory-notice">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Les champs marqués d'un astérisque rouge (*) sont obligatoires
+                    </div>
+
+                    <form id="applicationFormStep3">
+                        <!-- Customs Declaration Section -->
+                        <div class="form-subsection">
+                            <h3><i class="fas fa-clipboard-list"></i> DÉCLARATION EN DOUANE</h3>
+                            
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des marchandises ou objets soumis à déclaration ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="declaredGoods" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="declaredGoods" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des devises ou instruments de paiement dépassant 10 000 USD ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="currency" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="currency" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des animaux vivants, plantes ou produits alimentaires ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="animals" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="animals" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des biens soumis à la taxe ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="taxGoods" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="taxGoods" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+                            </div>
+
+                        <!-- Prohibited Items Section -->
+                        <div class="form-subsection">
+                            <h3><i class="fas fa-ban"></i> ARTICLES INTERDITS</h3>
+                            
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des armes, munitions ou explosifs ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="weapons" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="weapons" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des drogues, substances psychotropes ou médicaments sans ordonnance ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="drugs" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="drugs" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des objets de contrefaçon ou des produits illégaux ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="counterfeit" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="counterfeit" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+                            </div>
+
+                        <!-- Commercial Goods Section -->
+                        <div class="form-subsection">
+                            <h3><i class="fas fa-shopping-cart"></i> MARCHANDISES COMMERCIALES</h3>
+                            
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Transportez-vous des marchandises à des fins commerciales ? *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="commercialGoods" value="yes" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="commercialGoods" value="no" required>
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Valeur totale estimée des marchandises transportées (USD)</label>
+                                    <input type="number" name="goodsValue" placeholder="0.00" min="0" step="0.01">
+                            </div>
+                            </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Description des marchandises principales</label>
+                                    <textarea name="goodsDescription" placeholder="Décrivez brièvement les marchandises transportées..." rows="3"></textarea>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Personal Effects Section -->
+                        <div class="form-subsection">
+                            <h3><i class="fas fa-suitcase"></i> EFFETS PERSONNELS</h3>
+                            
+                        <div class="form-row">
+                            <div class="form-group">
+                                    <label>Valeur totale de vos effets personnels (USD)</label>
+                                    <input type="number" name="personalEffectsValue" placeholder="0.00" min="0" step="0.01">
+                            </div>
+                            </div>
+
+                        <div class="form-row">
+                                <div class="form-group">
+                                    <label>Nombre de bagages transportés</label>
+                                    <select name="luggageCount">
+                                        <option value="">Sélectionnez</option>
+                                        <option value="1">1 bagage</option>
+                                        <option value="2">2 bagages</option>
+                                        <option value="3">3 bagages</option>
+                                        <option value="4">4 bagages</option>
+                                        <option value="5+">5+ bagages</option>
+                                </select>
+                            </div>
+                        </div>
+                                </div>
+
+                        <!-- Additional Information Section -->
+                        <div class="form-subsection">
+                            <h3><i class="fas fa-info-circle"></i> INFORMATIONS COMPLÉMENTAIRES</h3>
+                            
+                        <div class="form-row">
+                                <div class="form-group">
+                                    <label>Informations supplémentaires à déclarer</label>
+                                    <textarea name="additionalInfo" placeholder="Précisez toute information supplémentaire concernant vos biens..." rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                                <div class="form-group">
+                                    <label>Voyagez-vous avec des mineurs non accompagnés ?</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="unaccompaniedMinors" value="yes">
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Oui</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="unaccompaniedMinors" value="no">
+                                            <span class="radio-custom"></span>
+                                            <span class="radio-text">Non</span>
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                                </div>
+
+                        <!-- Terms and Conditions Section -->
+                        <div class="form-subsection terms-section">
+                            <h3><i class="fas fa-file-contract"></i> CONDITIONS ET DÉCLARATIONS</h3>
+                            
+                        <div class="form-row">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="customsTerms" required>
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">
+                                            J'ai lu et j'accepte les conditions de déclaration en douane. *
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        <div class="form-row">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="truthDeclaration" required>
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">
+                                            Je déclare que toutes les informations fournies sont exactes et complètes. *
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        <div class="form-row">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="complianceDeclaration" required>
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">
+                                            Je m'engage à respecter toutes les réglementations douanières de la RDC. *
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="goBackToStep2()">
+                                <i class="fas fa-arrow-left"></i>
+                                RETOUR
+                            </button>
+                            <button type="submit" class="btn btn-primary" onclick="openConfirmationPage(); return false;">
+                                <i class="fas fa-arrow-right"></i>
+                                SUIVANT
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Page Modal -->
+    <div id="confirmationPageModal" class="modal application-form-modal">
+        <div class="application-form-content">
+            <!-- Close Button -->
+            <span class="close" onclick="closeConfirmationPage()">&times;</span>
+            
+            <!-- Back Arrow Button -->
+            <span class="back-arrow" onclick="goBackToStep3()">
+                <i class="fas fa-chevron-left"></i>
+            </span>
+
+            <!-- Navigation Header -->
+            <div class="application-nav-header">
+                <div class="nav-logo">
+                    <img src="images/new-logo.png" alt="RDC Congo Logo" class="nav-logo-img">
+                    <div class="nav-logo-text">
+                        <h1>E-TICKET</h1>
+                        <p>RDC CONGO</p>
+                    </div>
+                </div>
+                <div class="nav-language">
+                    <select id="confirmationLanguageSelect" onchange="changeConfirmationLanguage(this.value)">
+                        <option value="fr">FRANÇAIS</option>
+                        <option value="en">ENGLISH</option>
+                        <option value="es">ESPAÑOL</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-text">INFORMATION GENERALE</div>
+                </div>
+                <div class="progress-line completed"></div>
+                <div class="progress-step completed">
+                    <div class="step-number">2</div>
+                    <div class="step-text">DONNEES MIGRATOIRES</div>
+                </div>
+                <div class="progress-line completed"></div>
+                <div class="progress-step active">
+                    <div class="step-number">3</div>
+                    <div class="step-text">INFORMATION DE DOUANNE</div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="application-form-body">
+                <div class="confirmation-section">
+                    <h2>PLEASE CONFIRM YOUR DETAILS</h2>
+                    <p class="confirmation-instruction">Please review the information you have provided and press NEXT to proceed to the last step.</p>
+                    
+                    <div class="confirmation-form">
+                        <div class="confirmation-group">
+                            <h3>PERSONAL INFORMATION:</h3>
+                            <div class="confirmation-fields">
+                                <div class="confirmation-field">
+                                    <label>First name</label>
+                                    <div class="confirmation-input" id="confirmFirstName"></div>
+                    </div>
+                                <div class="confirmation-field">
+                                    <label>Last name</label>
+                                    <div class="confirmation-input" id="confirmLastName"></div>
+                                </div>
+                                <div class="confirmation-field">
+                                    <label>Gender</label>
+                                    <div class="confirmation-input" id="confirmGender"></div>
+                            </div>
+                                <div class="confirmation-field">
+                                    <label>Phone number:</label>
+                                    <div class="confirmation-input" id="confirmPhone"></div>
+                        </div>
+                                <div class="confirmation-field">
+                                    <label>E-mail address</label>
+                                    <div class="confirmation-input" id="confirmEmail"></div>
+                                </div>
+                                <div class="confirmation-field">
+                                    <label>Date of birth</label>
+                                    <div class="confirmation-input" id="confirmBirthDate"></div>
+                            </div>
+                                <div class="confirmation-field">
+                                    <label>Address</label>
+                                    <div class="confirmation-input" id="confirmAddress"></div>
+                        </div>
+                                <div class="confirmation-field">
+                                    <label>City</label>
+                                    <div class="confirmation-input" id="confirmCity"></div>
+                                </div>
+                                <div class="confirmation-field">
+                                    <label>Country of residence</label>
+                                    <div class="confirmation-input" id="confirmCountry"></div>
+                            </div>
+                                <div class="confirmation-field">
+                                    <label>Passport number</label>
+                                    <div class="confirmation-input" id="confirmPassport"></div>
+                        </div>
+                                <div class="confirmation-field">
+                                    <label>Passport country</label>
+                                    <div class="confirmation-input" id="confirmPassportCountry"></div>
+                                </div>
+                                <div class="confirmation-field">
+                                    <label>Civil status</label>
+                                    <div class="confirmation-input" id="confirmCivilStatus"></div>
+                            </div>
+                                <div class="confirmation-field">
+                                    <label>Occupation</label>
+                                    <div class="confirmation-input" id="confirmOccupation"></div>
+                        </div>
+                                <div class="confirmation-field">
+                                    <label>Travel purpose</label>
+                                    <div class="confirmation-input" id="confirmTravelPurpose"></div>
+                            </div>
+                                <div class="confirmation-field">
+                                    <label>Arrival date</label>
+                                    <div class="confirmation-input" id="confirmArrivalDate"></div>
+                        </div>
+                                <div class="confirmation-field">
+                                    <label>Arrival airport</label>
+                                    <div class="confirmation-input" id="confirmArrivalAirport"></div>
+                        </div>
+                                <div class="confirmation-field">
+                                    <label>Airline</label>
+                                    <div class="confirmation-input" id="confirmAirline"></div>
+                </div>
+                                <div class="confirmation-field">
+                                    <label>Flight number</label>
+                                    <div class="confirmation-input" id="confirmFlightNumber"></div>
+            </div>
+                                <div class="confirmation-field">
+                                    <label>Accommodation type</label>
+                                    <div class="confirmation-input" id="confirmAccommodation"></div>
+                                </div>
+                                <div class="confirmation-field">
+                                    <label>Stay duration (days)</label>
+                                    <div class="confirmation-input" id="confirmStayDays"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="confirmation-actions">
+                            <button type="button" class="btn btn-primary" onclick="proceedToFinalStep()">NEXT</button>
+                            <button type="button" class="btn btn-secondary" onclick="goBackToStep3()">BACK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success">
+            <span class="close">&times;</span>
+            <div class="success-content">
+                <i class="fas fa-check-circle"></i>
+                <h2>E-TICKET Généré avec Succès!</h2>
+                <div class="qr-code">
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <p>Code QR: <span id="ticketNumber">ET-2025-001234</span></p>
+                </div>
+                <div class="ticket-actions">
+                    <button class="btn btn-primary" onclick="downloadPDF()">
+                        <i class="fas fa-download"></i>
+                        Télécharger PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeSuccessModal()">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exigences Modal -->
+    <div id="exigencesModal" class="modal">
+        <div class="modal-content exigences">
+            <span class="close" onclick="closeExigencesModal()">&times;</span>
+            <div class="exigences-content">
+                <div class="exigences-modal-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="margin: 0;"><i class="fas fa-info-circle"></i> EXIGENCES E-TICKET</h2>
+                    <div class="exigences-language-selector">
+                        <select id="exigencesLanguageSelect" onchange="changeExigencesLanguage(this.value)">
+                            <option value="fr">FRANÇAIS</option>
+                            <option value="en">ENGLISH</option>
+                            <option value="es">ESPAÑOL</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="exigences-text">
+                    <p>Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays. Toute personne souhaitant visiter la RDC CONGO doit remplir deux formulaires de demande. Ces formulaires sont les suivants :</p>
+                    
+                    <p>Pass d'arrivée (utilisé à l'entrée du pays)</p>
+                    <p>Pass de départ (utilisé à la sortie du pays)</p>
+                    
+                    <p>Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays. Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.</p>
+                    
+                    <p><strong>Veuillez noter :</strong></p>
+                        <p>Le billet électronique (e-Ticket) ne remplace pas un visa. Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa. Ces documents devront être présentés au service d'immigration et de sécurité à l'entrée et à la sortie du pays.</p>
+                    
+                    <h3>📋 DOCUMENTS REQUIS:</h3>
+                    <ul>
+                        <li>Passeport valide (minimum 6 mois de validité)</li>
+                        <li>Photo d'identité récente (format 3x4 cm)</li>
+                        <li>Billet d'avion aller-retour ou de sortie</li>
+                        <li>Justificatif d'hébergement au Congo</li>
+                        <li>Preuve de ressources financières suffisantes</li>
+                    </ul>
+                    
+                    <h3>💰 FRAIS:</h3>
+                    <ul>
+                        <li>E-Ticket principal: $50 USD</li>
+                        <li>Visiteurs supplémentaires: $0 USD</li>
+                        <li>Paiement par VISA, Mastercard, Wave, M-Pesa</li>
+                    </ul>
+                    
+                    <h3>⏰ DÉLAIS:</h3>
+                    <ul>
+                        <li>Demande: 72h avant le voyage</li>
+                        <li>Traitement: 24-48h</li>
+                        <li>Validité: 90 jours</li>
+                    </ul>
+                    
+                    <h3>⚠️ IMPORTANT:</h3>
+                    <ul>
+                        <li>Tous les champs marqués (*) sont obligatoires</li>
+                        <li>Vérifiez vos informations avant soumission</li>
+                        <li>Gardez une copie de votre e-Ticket</li>
+                        <li>Présentez le document à l'arrivée et la sortie</li>
+                    </ul>
+                    
+                    <h3>🔒 SÉCURITÉ:</h3>
+                    <ul>
+                        <li>Paiement sécurisé SSL</li>
+                        <li>Données protégées</li>
+                        <li>Service officiel du gouvernement</li>
+                    </ul>
+                </div>
+                
+                <div class="exigences-actions">
+                    <button class="btn btn-secondary" onclick="copyExigences()">
+                        <i class="fas fa-copy"></i>
+                        Copier les exigences
+                    </button>
+                    <button class="btn btn-primary" onclick="closeExigencesModal()">
+                        <i class="fas fa-check"></i>
+                        Compris
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exigences Info Modal (from orange button) -->
+    <div id="exigencesInfoModal" class="modal">
+        <div class="modal-content exigences">
+            <span class="close" onclick="closeExigencesInfoModal()">&times;</span>
+            <div class="exigences-content">
+                <h2><i class="fas fa-info-circle"></i> EXIGENCES E-TICKET</h2>
+                <div class="exigences-text">
+                    <p>Le gouvernement de la RDC CONGO et SERVICE D'IMMIGRATION délivre un document en ligne appelé e-Ticket, conçu pour suivre les touristes qui entrent et sortent du pays. Toute personne souhaitant visiter la RDC CONGO doit remplir deux formulaires de demande. Ces formulaires sont les suivants :</p>
+                    
+                    <p>Pass d'arrivée (utilisé à l'entrée du pays)</p>
+                    <p>Pass de départ (utilisé à la sortie du pays)</p>
+                    
+                    <p>Le pass délivré par le gouvernement de la RDC CONGO est une exigence légale, et toute personne ne s'en procurant pas risque de ne pas être autorisée à entrer ou à sortir du pays. Si un visiteur connaît les dates de son arrivée et de son départ de la RDC CONGO, il peut utiliser une seule demande pour les deux passes.</p>
+                    
+                    <p><strong>Veuillez noter :</strong></p>
+                    <p>Le billet électronique (e-Ticket) ne remplace pas un visa. Si vous êtes citoyen d'un pays qui nécessite un visa pour entrer en RDC CONGO, vous devez obtenir à la fois un e-Ticket et un visa. Ces documents devront être présentés au service d'immigration et de sécurité à l'entrée et à la sortie du pays.</p>
+                    
+                    <h3>📋 DOCUMENTS REQUIS:</h3>
+                    <ul>
+                        <li>Passeport valide (minimum 6 mois de validité)</li>
+                        <li>Photo d'identité récente (format 3x4 cm)</li>
+                        <li>Billet d'avion aller-retour ou de sortie</li>
+                        <li>Justificatif d'hébergement au Congo</li>
+                        <li>Preuve de ressources financières suffisantes</li>
+                    </ul>
+                    
+                    <h3>💰 FRAIS:</h3>
+                    <ul>
+                        <li>E-Ticket principal: $50 USD</li>
+                        <li>Visiteurs supplémentaires: $0 USD</li>
+                        <li>Paiement par VISA, Mastercard, Wave, M-Pesa</li>
+                    </ul>
+                    
+                    <h3>⏰ DÉLAIS:</h3>
+                    <ul>
+                        <li>Demande: 72h avant le voyage</li>
+                        <li>Traitement: 24-48h</li>
+                        <li>Validité: 90 jours</li>
+                    </ul>
+                    
+                    <h3>⚠️ IMPORTANT:</h3>
+                    <ul>
+                        <li>Tous les champs marqués (*) sont obligatoires</li>
+                        <li>Vérifiez vos informations avant soumission</li>
+                        <li>Gardez une copie de votre e-Ticket</li>
+                        <li>Présentez le document à l'arrivée et la sortie</li>
+                    </ul>
+                    
+                    <h3>🔒 SÉCURITÉ:</h3>
+                    <ul>
+                        <li>Paiement sécurisé SSL</li>
+                        <li>Données protégées</li>
+                        <li>Service officiel du gouvernement</li>
+                    </ul>
+                </div>
+                <div class="exigences-actions">
+                    <button class="btn btn-primary" onclick="closeExigencesInfoModal()">
+                        <i class="fas fa-check"></i>
+                        Compris
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
